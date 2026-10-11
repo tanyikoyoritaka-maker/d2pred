@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "run": "results/smoke_final_protocol",
+  "fixed_outer_folds": 3,
+  "seeds": [17],
+  "epochs": 1,
+  "fusion_epochs": 1,
+  "models": 11,
+  "expected_model_fold_records": 33,
+  "observed_model_fold_records": 33,
+  "test_predictions": 7238,
+  "nan_counts": {
+    "summary_metrics": 0,
+    "test_predictions": 0,
+    "device_level_metrics": 0
+  },
+  "note": "Single-seed smoke test cannot produce empirical seed intervals; formal three-seed run is required for interval estimates.",
+  "formal_run": {
+    "path": "results/final_ac_nested",
+    "status": "verified_complete",
+    "model_fold_seed_records": 99,
+    "test_predictions": 21714,
+    "seed_ensemble_predictions": 7238,
+    "nan_counts": 0,
+    "paired_statistical_tests": "empty_output_review_required"
+  }
+}

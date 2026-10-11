@@ -1,0 +1,86 @@
+{
+  "protocol_id": "d2pred_final_public_benchmark_v1",
+  "status": "PROPOSED_NOT_EXECUTED_AWAITING_HUMAN_APPROVAL",
+  "purpose": "A single common-protocol public benchmark comparison; no provisional results are part of this protocol.",
+  "datasets": ["ims", "pronostia", "xjtu_sy"],
+  "models": [
+    "d2pred_expert_exact_v1",
+    "CNN",
+    "DAG_network",
+    "PM2FN",
+    "Transformer",
+    "TCN_BiGRU",
+    "KGHM",
+    "ATCN",
+    "MDFA",
+    "SBi_Transformer",
+    "Attn_ResDSCNN"
+  ],
+  "data_and_target": {
+    "unit_level_split": true,
+    "split_before_prefix_generation": true,
+    "endpoint_rule": "dataset-provided functional-failure endpoint; endpoint manifest frozen before training",
+    "target": "RUL in cycles, endpoint_cycle minus current_cycle",
+    "prefix_start_cycle": 30,
+    "prefix_stride": 20,
+    "include_final_endpoint": true,
+    "maximum_prefixes_per_unit": 20,
+    "sequence_length": 128,
+    "same_observed_prefix_endpoints_across_models": true,
+    "public_processing": "only the versioned scripts and manifests in d2pred_final/public_processing",
+    "data_leakage_controls": [
+      "no unit appears in more than one outer split",
+      "endpoint and target manifests are frozen before model fitting",
+      "normalization fit on inner-training units only",
+      "test units are never used for tuning, early stopping or checkpoint selection"
+    ]
+  },
+  "evaluation": {
+    "outer_folds": 3,
+    "outer_split": "nested physical-device folds, identical folds for every model and seed",
+    "inner_validation": "device-wise validation split from outer-development units; fixed before training",
+    "seeds": [17, 42, 73],
+    "metrics": ["RMSE_cycles", "MAE_cycles", "P90AE_cycles"],
+    "uncertainty": "outer-fold and seed-ensemble summaries with validation-calibrated intervals",
+    "test_use": "one final evaluation after validation-based checkpoint selection"
+  },
+  "training": {
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "batch_size": 8,
+    "maximum_epochs": 50,
+    "fusion_epochs": 30,
+    "learning_rate_schedule": "1e-3 through epoch 25, then 5e-4",
+    "checkpoint_selection": "lowest inner-validation primary loss",
+    "early_stopping": "patience 8 beginning after epoch 25",
+    "gradient_clip_norm": 5.0,
+    "normalization": "inner-training units only",
+    "device": "cuda"
+  },
+  "model_protocol": {
+    "expert": "manuscript-exact trend-fusion network, gradual-component encoder, twelve raw residual descriptors, token projection, three masked self-attention blocks, attention-guided fusion, Softplus output and joint loss",
+    "baselines": "common raw-DI prefix and identical folds, seeds, target, tuning budget and stopping rules; architecture adaptations labelled in metadata",
+    "tuning_budget": "fixed in advance; no test-based tuning; no model-specific extra search"
+  },
+  "required_freeze_artifacts_before_execution": [
+    "dataset_manifest.json",
+    "endpoint_manifest.csv",
+    "folds.json",
+    "model_registry.json",
+    "environment.json",
+    "configuration.json",
+    "source_checksums.csv"
+  ],
+  "required_outputs": [
+    "prediction-level outputs",
+    "per-device metrics",
+    "fold/seed summaries",
+    "paired statistical tests",
+    "reliability summary",
+    "computational cost",
+    "figures regenerated only from verified predictions",
+    "final checksum manifest"
+  ],
+  "execution_gate": "Do not start until a human records approval of this exact protocol.",
+  "results": null
+}

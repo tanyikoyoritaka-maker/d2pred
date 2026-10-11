@@ -1,0 +1,221 @@
+{
+  "protocol_id": "d2pred_final_complete_experiment_v1",
+  "status": "FROZEN_APPROVED_EXECUTION_STARTED",
+  "supersedes": [
+    "public_benchmark_freeze_protocol_v1"
+  ],
+  "purpose": "Freeze one reproducible experiment suite covering AC groups, ACAll, public benchmarks, model comparisons, Expert ablations and sensitivity analyses.",
+  "common_protocol": {
+    "seeds": [
+      17,
+      42,
+      73
+    ],
+    "outer_folds": 3,
+    "outer_split": "nested physical-device folds; identical folds within each dataset and experiment family",
+    "inner_validation": "device-wise split from outer-development units, fixed before training",
+    "target": "RUL in cycles = endpoint_cycle - current_cycle",
+    "normalization": "inner-training devices only",
+    "prefix_start_cycle": 30,
+    "prefix_stride": 20,
+    "include_final_endpoint": true,
+    "maximum_prefixes_per_unit": 20,
+    "sequence_length": 128,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "batch_size": 8,
+    "maximum_epochs": 50,
+    "fusion_epochs": 50,
+    "learning_rate_schedule": "1e-3 through epoch 25, then 5e-4",
+    "early_stopping": "patience 8 beginning after epoch 25",
+    "checkpoint_selection": "lowest inner-validation primary loss",
+    "gradient_clip_norm": 5.0,
+    "test_use": "one final evaluation after validation selection; never used for tuning",
+    "metrics": [
+      "RMSE_cycles",
+      "MAE_cycles",
+      "P90AE_cycles"
+    ],
+    "required_outputs": [
+      "prediction-level CSV",
+      "per-device metrics",
+      "fold/seed summaries",
+      "paired tests",
+      "reliability",
+      "computational cost",
+      "environment",
+      "checksums"
+    ]
+  },
+  "datasets_and_partitions": {
+    "industrial_grouping_rule": {
+      "threshold_cycles": 1000,
+      "definition": "For every eligible device u, L_u < 1000 cycles is ACSim and L_u >= 1000 cycles is ACCom. No manual exception or post hoc reassignment is permitted.",
+      "effective_assignment_verified_unchanged": true,
+      "effective_counts": {"ACSim": 17, "ACCom": 16, "ACAll": 33},
+      "assignment_source": "manifests/group_manifest.csv group column"
+    },
+    "ACSim": {
+      "units": 17,
+      "group": "ACSim",
+      "endpoint_manifest": "manifests/failure_endpoint_manifest.csv",
+      "group_manifest": "manifests/group_manifest.csv"
+    },
+    "ACCom": {
+      "units": 16,
+      "group": "ACCom",
+      "endpoint_manifest": "manifests/failure_endpoint_manifest.csv",
+      "group_manifest": "manifests/group_manifest.csv"
+    },
+    "ACAll": {
+      "units": 33,
+      "group": "ACAll",
+      "definition": "all eligible AC units pooled; ACSim/ACCom labels are retained only as metadata and are not used as a training/evaluation partition",
+      "endpoint_manifest": "manifests/failure_endpoint_manifest.csv",
+      "split_manifest": "new ACAll device-wise folds generated and frozen before training"
+    },
+    "public": {
+      "datasets": [
+        "ims",
+        "pronostia",
+        "xjtu_sy"
+      ],
+      "split_manifest": "public device-wise folds generated and frozen before training"
+    }
+  },
+  "comparison_experiments": {
+    "models": [
+      "d2pred_expert_exact_v1",
+      "CNN",
+      "DAG_network",
+      "PM2FN",
+      "Transformer",
+      "TCN_BiGRU",
+      "KGHM",
+      "ATCN",
+      "MDFA",
+      "SBi_Transformer",
+      "Attn_ResDSCNN"
+    ],
+    "datasets": [
+      "ACSim",
+      "ACCom",
+      "ACAll",
+      "ims",
+      "pronostia",
+      "xjtu_sy"
+    ],
+    "protocol": "common_protocol",
+    "comparison_rule": "same folds, seeds, target, prefix endpoints, tuning budget, stopping rule and metrics within each dataset",
+    "acall_rule": "ACAll is an independent pooled 33-unit experiment; no ACSim/ACCom partition indicator is supplied to the model"
+  },
+  "ablation_experiments": {
+    "base_model": "d2pred_expert_exact_v1",
+    "datasets": [
+      "ACSim",
+      "ACCom",
+      "ACAll"
+    ],
+    "priority": "preprocessing_and_decomposition_first; structural_diagnostics_deferred",
+    "variants": [
+      {
+        "id": "full",
+        "change": "manuscript-exact Expert; reference condition"
+      },
+      {
+        "id": "no_wiener",
+        "change": "remove Wiener trend source; retain rolling-prefix STL source"
+      },
+      {
+        "id": "no_stl",
+        "change": "remove rolling-prefix STL trend source; retain Wiener source"
+      },
+      {
+        "id": "no_autoencoder_fusion",
+        "change": "replace learned DWC fusion with deterministic trend combination"
+      },
+      {
+        "id": "no_dwc",
+        "change": "remove DWC gradual-trend branch while retaining residual processing"
+      },
+      {
+        "id": "no_edc",
+        "change": "remove EDC residual branch and its AEP tokens"
+      },
+      {
+        "id": "no_decomposition",
+        "change": "skip DWC/EDC separation and feed raw DI to the predictor"
+      },
+      {
+        "id": "no_aep",
+        "change": "remove adaptive event partitioning; use the registered non-adaptive token control"
+      }
+    ],
+    "controls": "one-factor preprocessing change from full model; all other code, folds, seeds, target, budgets and stopping rules identical",
+    "test_use": "test set is not used to choose an ablation variant"
+  },
+  "sensitivity_experiments": {
+    "base_model": "d2pred_expert_exact_v1",
+    "datasets": [
+      "ACSim",
+      "ACCom",
+      "ACAll"
+    ],
+    "execution_order": "after preprocessing_ablation_completion_and_audit",
+    "design": "one-factor-at-a-time around the frozen reference; each registered value is evaluated without test-based selection",
+    "factors": {
+      "segmentation_sensitivity_gamma": [
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5
+      ],
+      "minimum_segment_length": [
+        4,
+        8,
+        12,
+        16
+      ],
+      "maximum_change_points": [
+        8,
+        15,
+        24
+      ],
+      "maximum_output_tokens": [
+        8,
+        16,
+        24
+      ],
+      "prefix_start_cycle": [
+        10,
+        30,
+        50
+      ],
+      "prefix_stride": [
+        10,
+        20,
+        40
+      ],
+      "maximum_prefixes_per_unit": [
+        10,
+        20,
+        40
+      ]
+    },
+    "controls": "all non-varied parameters remain equal to common_protocol; same predefined device folds and seeds; target definition, normalization, checkpoint rule, stopping rule and metrics unchanged",
+    "reporting": "RMSE, MAE and P90AE in cycles; mean, outer-fold dispersion and seed dispersion for every registered value; no preferred value selected from test performance",
+    "status": "FROZEN_PENDING_ABLATION_COMPLETION",
+    "execution_queue": "manifests/sensitivity_execution_queue.json",
+    "launch_condition": "all three preprocessing ablation run_status files verified_complete and ablation audit PASS"
+  },
+  "visualisation_and_archive": {
+    "after_completion_only": true,
+    "pdf": "one multi-page PDF containing comparison tables, ACAll/ACSim/ACCom rankings, public benchmark rankings, ablation deltas, sensitivity curves, reliability, uncertainty and computational cost",
+    "png": "matching high-resolution dashboard pages",
+    "source_rule": "figures generated directly from verified prediction-level files; no hand-entered values",
+    "archive": "code, configs, folds, manifests, predictions, metrics, figure scripts, environment and checksum manifest"
+  },
+  "approval_gate": "Approved by the user on 2026-09-22; preprocessing ablation execution authorised.",
+  "results": null
+}

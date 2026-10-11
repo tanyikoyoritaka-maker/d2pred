@@ -1,0 +1,80 @@
+{
+  "status": "FORMAL_AC_RERUN_VERIFIED_COMPLETE_PENDING_TABLE_FIGURE_REGENERATION",
+  "user_confirmed": {
+    "heterogeneous_exclusions_confirmed": true,
+    "exclusion_count_confirmed": 5,
+    "exclusion_units_confirmed": [1, 3, 11, 35, 38],
+    "grouping_confirmed": true,
+    "di_and_unit_identifiers_shareable": true,
+    "raw_di_construction_details_shareable": false,
+    "confirmation_note": "User corrected the prior typo: five units are excluded. They have markedly different ultra-long lifetimes and are not the same device type as the retained cohort."
+  },
+  "scope": "final leakage-controlled D2Pred rebuild",
+  "implementation_gate": {
+    "sections_to_verify": ["trend-fusion network", "gradual-component encoder", "twelve raw residual descriptors", "token projection", "three-block masked self-attention encoder", "attention-guided fusion", "Softplus output", "joint loss"],
+    "required_architecture_version": "d2pred_expert_exact_v1",
+    "required_joint_loss": "RUL_MSE + 0.1 gradual_aux_MSE + 0.1 event_aux_MSE + 0.1 trend_fusion_loss",
+    "all_components_must_have_gradient_and_finite_forward": true
+  },
+  "industrial_data_gate": {
+    "initial_cohort_size": 38,
+    "exclusions_to_verify_against_original_records": [1, 3, 11, 35, 38],
+    "exclusion_reason": "user-confirmed other device type with markedly different ultra-long lifetime",
+    "functional_failure_definition": {
+      "status": "VERIFIED_FROM_ACCEPTANCE_REPORT_AND_CHINESE_FINAL_PAPER",
+      "meaning": "the operational event at which the device is recorded as functionally failed or no longer meets the experiment's operating criterion; it is not synonymous with an arbitrary DI threshold or the last available timestamp",
+      "required_evidence": ["original run log or experiment record", "device failure/stop annotation or maintenance record", "failure mode or operating-limit description", "endpoint timestamp/cycle and relation to the recorded trajectory", "whether the run is run-to-failure or censored"],
+      "accepted_outcome": "quote or faithfully paraphrase the source definition, identify the source file/page/record, and encode one deterministic endpoint rule",
+      "frozen_endpoint_rule": "For each anonymised unit u, endpoint T_u is the final observed cycle whose RUL equals 0; target RUL at cycle t is T_u - t. This follows the source convention that total close-open operations until failure define lifetime.",
+      "per_unit_endpoint_table_in_sources": false,
+      "fallback_rule_applied": "RUL=0 is endpoint",
+      "rejected_outcomes": ["inferring failure from a DI curve alone", "using a model-selected threshold", "using the last row as failure without source support", "mixing functional failure with censoring or scheduled shutdown"],
+      "current_status": "Acceptance report supplies engineering failure forms; chinese_paper Section 6.2.2 supplies complete-trajectory and endpoint convention; DI table endpoint identities verified for all 38 units"
+    },
+    "eligible_devices": 33,
+    "grouping_rule": "cycles-based fixed rule; median threshold 1063.5 cycles, with approved boundary overrides Unit 12 and Unit 16 -> ACCom and Unit 23 -> ACSim",
+    "final_group_counts": {"ACCom": 16, "ACSim": 17},
+    "group_labels_frozen_before_training": true
+  },
+  "evaluation": {
+    "unit_level_nested_cv": true,
+    "outer_folds": 3,
+    "inner_validation_fraction": 0.22,
+    "seeds": [17, 42, 73],
+    "prefix_start": 30,
+    "prefix_stride": 20,
+    "include_final_endpoint": true,
+    "maximum_prefixes_per_device": 20,
+    "sequence_length": 128,
+    "optimizer": "Adam",
+    "batch_size": 8,
+    "epochs": 50,
+    "learning_rate": {"epochs_1_25": 0.001, "epochs_26_50": 0.0005},
+    "early_stopping": {"enabled": true, "patience_after_epoch_25": 8},
+    "checkpoint_selection": "lowest inner-validation objective only",
+    "test_evaluation": "one final evaluation after checkpoint freeze",
+    "normalization_decomposition_and_fusion_fit": "training devices/prefixes of the current fold only"
+  },
+  "baselines": {
+    "public_baselines": ["CNN", "DAG_network", "PM2FN", "Transformer", "TCN_BiGRU", "KGHM", "ATCN", "MDFA", "SBi_Transformer", "Attn_ResDSCNN"],
+    "removed": ["LSTM", "BiLSTM", "IMDSSN"],
+    "common_protocol_required": ["same folds", "same seeds", "same target definition", "same tuning budget", "same stopping rule", "same test-once rule"],
+    "adapted_implementation_label": "architecture-level reimplementation; never described as official code"
+  },
+  "outputs": {
+    "prediction_level": true,
+    "tables": ["comparison", "generalisation", "semi-synthetic", "ablation", "reliability", "robustness", "computational"],
+    "figures": {"figure_3": "verified prediction files plus accepted partition boundaries", "figure_4": "seed ensemble with validation-calibrated interval"},
+    "supplement": ["environment files", "container specification", "configs", "folds", "manifests", "public-data processing", "semi-synthetic generator", "predictions", "statistical results", "figure scripts", "checksums"],
+    "data_availability": "DI arrays and anonymised unit names may be shared; detailed DI construction process and any unapproved raw industrial records will not be shared"
+  },
+  "preexecution_evidence": {
+    "cohort_fold_audit": "manifests/freeze_audit.json",
+    "model_causality_gradient_audit": "manifests/model_preexecution_audit.json",
+    "endpoint_audit": "functional_failure_source_audit.md",
+    "environment_record": "environment_audit_draft.json",
+    "checksum_manifest": "checksum_manifest.csv",
+    "causal_unit_tests": "19/19 passed"
+  },
+  "blocking_items_before_training": []
+}

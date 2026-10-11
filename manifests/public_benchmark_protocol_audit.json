@@ -1,0 +1,66 @@
+{
+  "audit_status": "COMPLETED_NOT_FREEZABLE",
+  "freeze_decision": "DO_NOT_FREEZE_CURRENT_PUBLIC_RESULTS",
+  "result_file_used_for_recent_visualisation": "/home/mao/D2Pred/PythonProject2/exp_public_baselines_repaired_transformer/merged_results/overall_expert_public_metrics.csv",
+  "source_lineage": {
+    "retained_baselines": "all_public_baselines_metrics.csv, assembled from the 2026-09-16 new_standard priority-2 run",
+    "expert_public_rows": "new_standard_rerun_20260915/runs/{ims,pronostia,xjtu_sy}/expert_aligned_aep_gated_causal/metrics.json",
+    "transformer_repair_run": "exp_public_baselines_repaired_transformer/transformer_rerun_v3",
+    "ranking_builder": "PythonProject2/analysis/build_overall_expert_public_ranking.py"
+  },
+  "verified_observations": {
+    "datasets_in_visualised_public_file": ["ims", "pronostia", "xjtu_sy"],
+    "models_in_visualised_public_file": ["CNN", "DAG_network", "PM2FN", "Transformer", "TCN_BiGRU", "KGHM", "ATCN", "MDFA", "SBi_Transformer", "Attn_ResDSCNN", "Expert"],
+    "removed_models_not_in_visualised_file": ["LSTM", "BiLSTM", "IMDSSN"],
+    "public_baseline_run_status": "completed",
+    "expert_source_run_status": "completed",
+    "transformer_v3_run_status": "verified_complete"
+  },
+  "protocol_evidence": {
+    "available": [
+      "results/new_standard_rerun_20260915/protocol.json",
+      "results/new_standard_rerun_20260915/protocols/priority2_paper_baselines.json",
+      "exp_public_baselines_repaired_transformer/transformer_rerun_v3/protocol.json",
+      "exp_public_baselines_repaired_transformer/protocol_for_human_review.json"
+    ],
+    "known_parameters": {
+      "baseline_seed": [42],
+      "baseline_epochs": 50,
+      "baseline_fusion_epochs": 30,
+      "baseline_batch_size": 8,
+      "baseline_max_prefixes_per_unit": 20,
+      "baseline_sequence_length": 128,
+      "baseline_checkpoint_selection": "minimum validation MSE",
+      "baseline_normalization": "training prefixes only",
+      "transformer_v3_seeds": [17, 42, 73],
+      "transformer_v3_outer_folds": 3,
+      "transformer_v3_fusion_epochs": 10
+    }
+  },
+  "blocking_gaps": [
+    "The visualised public baseline values and Expert values do not come from one single frozen run directory or one single manifest.",
+    "The public baseline values are single-seed (42), whereas transformer_rerun_v3 is three-seed and only reruns Transformer; the all-model public table is not a three-seed common-protocol table.",
+    "protocol_for_human_review.json records only a model list and status; it does not freeze public unit folds, data manifests, target construction, checkpoint rule, software/environment checksum, or per-run provenance.",
+    "The upstream priority-2 protocol still announces LSTM, BiLSTM and IMDSSN, although the later human-review list removes them; this is not a single internally consistent protocol.",
+    "The Expert rows in the merged public file are taken from expert_aligned_aep_gated_causal in the new-standard run, not from the three-seed transformer_rerun_v3 directory, so the public table mixes provenance and training settings.",
+    "No frozen checksum manifest covers the public source code, public data processing, folds and merged result together."
+  ],
+  "proposed_approval_run": {
+    "status": "FOR_HUMAN_APPROVAL_ONLY_NOT_STARTED",
+    "datasets": ["ims", "pronostia", "xjtu_sy"],
+    "models": ["d2pred_expert_exact_v1", "CNN", "DAG_network", "PM2FN", "Transformer", "TCN_BiGRU", "KGHM", "ATCN", "MDFA", "SBi_Transformer", "Attn_ResDSCNN"],
+    "seeds": [17, 42, 73],
+    "outer_folds": 3,
+    "device_split": "nested physical-device folds, identical folds for every model and seed",
+    "target": "RUL in cycles using the dataset endpoint; public-data target and endpoint manifests frozen before training",
+    "normalization": "inner-training devices/prefixes only",
+    "prefix_policy": "same observed prefix endpoints across models; maximum 20 prefixes per unit; sequence length 128",
+    "optimizer": "Adam, learning rate 1e-3",
+    "batch_size": 8,
+    "maximum_epochs": 50,
+    "fusion_epochs": 30,
+    "checkpoint_selection": "minimum validation MSE only; test never used",
+    "outputs": "prediction-level CSV, per-device metrics, reliability, computational cost, environment, folds, manifests and SHA-256 checksums",
+    "approval_gate": "Do not execute until human approval is recorded."
+  }
+}

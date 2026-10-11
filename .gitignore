@@ -1,0 +1,23 @@
+# Generated experiment outputs and large/private artifacts
+results/
+new_parameter/
+healthy_sensitivity/
+supplementary_sensitivity/
+data/
+figures/*
+!figures/**/*.py
+!figures/*.py
+__pycache__/
+*.pyc
+*.pt
+*.pth
+*.ckpt
+*.csv
+!checksum_manifest.csv
+*.parquet
+*.zip
+
+# Local runtime and environment files
+.venv/
+.env
+*.log

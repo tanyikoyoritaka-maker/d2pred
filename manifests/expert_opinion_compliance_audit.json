@@ -1,0 +1,56 @@
+{
+  "audit_id": "expert_opinion_compliance_2026-09-21",
+  "status": "PARTIAL_COMPLIANCE_BLOCKED_FOR_FINAL_FREEZE",
+  "scope": "d2pred_final implementation, frozen AC rerun and proposed complete experiment protocol",
+  "implementation_checks": {
+    "trend_fusion_network": {"status": "PASS_IN_CODE", "evidence": "analysis/theory_aligned_decomposition.py; ExpertExactD2Pred.trend_fusion"},
+    "gradual_component_encoder": {"status": "PASS_IN_CODE", "evidence": "unidirectional LSTM encoder in analysis/expert_exact_d2pred.py"},
+    "twelve_raw_residual_descriptors": {"status": "FAIL_EXACT_MATCH", "evidence": "event_tokens uses segment_tokens(mode=stats), which creates twelve statistical descriptors; it does not implement twelve raw residual descriptors as stated by the expert"},
+    "token_projection": {"status": "PASS_IN_CODE", "evidence": "Linear(12,64)-ReLU-Linear(64,64)"},
+    "three_block_masked_self_attention": {"status": "PARTIAL", "evidence": "TransformerEncoder num_layers=3 with padding key mask; exact Section 3 mask semantics require manuscript equation/source verification"},
+    "attention_guided_fusion": {"status": "PASS_IN_CODE", "evidence": "DWC query with event key/value MultiheadAttention plus residual"},
+    "softplus_output": {"status": "PASS_IN_CODE", "evidence": "final regression output uses Softplus"},
+    "joint_loss": {"status": "PASS_IN_IMPLEMENTATION_METADATA_CORRECTED", "evidence": "RUL MSE + 0.1 gradual auxiliary MSE + 0.1 event auxiliary MSE + 0.1 trend-fusion loss"}
+  },
+  "industrial_data_checks": {
+    "initial_cohort": 38,
+    "excluded_units": [1, 3, 11, 35, 38],
+    "eligible_units": 33,
+    "ACSim": 17,
+    "ACCom": 16,
+    "endpoint_rule": "RUL=0 final observed cycle; target is endpoint_cycle-current_cycle",
+    "grouping": "cycles-based fixed rule with approved Unit12/16 -> ACCom and Unit23 -> ACSim",
+    "status": "PASS_AGAINST_FROZEN_MANIFESTS",
+    "evidence": ["manifests/freeze_audit.json", "manifests/failure_endpoint_manifest.csv", "manifests/group_manifest.csv", "functional_failure_source_audit.md"]
+  },
+  "evaluation_status": {
+    "ACSim_ACCom": "FORMAL_COMPLETE_VERIFIED",
+    "ACAll": "NOT_EXECUTED",
+    "public_benchmark_common_protocol": "NOT_EXECUTED",
+    "ablation": "NOT_EXECUTED",
+    "sensitivity": "NOT_EXECUTED",
+    "comparison_generalisation_semi_synthetic_robustness_tables": "NOT_COMPLETE",
+    "final_AC_prediction_count": 21714,
+    "final_AC_model_fold_seed_records": 99,
+    "final_AC_nan_audit": "PASS"
+  },
+  "protocol_and_reproducibility": {
+    "baseline_registry": "PASS for retained AC baseline list; excluded models removed",
+    "adapted_label": "architecture-level reimplementation",
+    "folds_and_seeds": "PASS for final AC rerun; complete proposed suite awaits execution",
+    "figures_3_4": "NOT_GENERATED_FROM_FINAL_VERIFIED_FILES",
+    "supplementary_archive": "NOT_BUILT",
+    "hardware_software": "RECORDED_FOR_FINAL_AC_RERUN; must be regenerated and checked against every public/ablation rerun",
+    "data_availability": "DRAFT_ONLY; user authorises anonymised DI and unit names, not detailed DI construction process; owner confirmation artifact still required"
+  },
+  "blocking_actions": [
+    "Resolve the twelve raw residual descriptor mismatch against Sections 2/3; implement the exact descriptor definition or document a justified correction.",
+    "Verify the exact self-attention mask and all Section 3 equations against the manuscript source.",
+    "Freeze and execute ACAll, public benchmark, ablation and sensitivity protocols.",
+    "Regenerate Figures 3 and 4 from verified prediction-level files.",
+    "Build the complete supplementary archive and final checksum manifest.",
+    "Replace all provisional comparison, generalisation, semi-synthetic, ablation, reliability, robustness and computational values.",
+    "Obtain/record data-owner authorisation for the exact anonymised industrial artefacts to accompany submission."
+  ],
+  "approval_state": "NOT_READY_FOR_FINAL_SUBMISSION_FREEZE"
+}

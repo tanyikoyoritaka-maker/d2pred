@@ -1,0 +1,21 @@
+{
+  "expert": "d2pred_expert_exact_v1",
+  "public_baselines": [
+    "CNN",
+    "DAG_network",
+    "PM2FN",
+    "Transformer",
+    "TCN_BiGRU",
+    "KGHM",
+    "ATCN",
+    "MDFA",
+    "SBi_Transformer",
+    "Attn_ResDSCNN"
+  ],
+  "removed": [
+    "LSTM",
+    "BiLSTM",
+    "IMDSSN"
+  ],
+  "adapted_label": "architecture-level reimplementation"
+}

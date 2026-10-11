@@ -1,0 +1,38 @@
+[
+  {
+    "dataset_name": "xjtu_sy",
+    "discovered_path": "/home/mao/D2Pred/PythonProject2/XJTU-SY_Bearing_Datasets",
+    "file_count": 9217,
+    "size": 12220812451,
+    "detected_format": ".csv,.pdf",
+    "status": "found",
+    "notes": ""
+  },
+  {
+    "dataset_name": "pronostia",
+    "discovered_path": "/home/mao/D2Pred/PythonProject2/PHM_IEEE_2012/phm-ieee-2012-data-challenge-dataset-master",
+    "file_count": 42744,
+    "size": 3175743192,
+    "detected_format": ".csv,.md,.pdf",
+    "status": "found",
+    "notes": ""
+  },
+  {
+    "dataset_name": "ims",
+    "discovered_path": "/home/mao/D2Pred/PythonProject2/IMSDataset/IMS",
+    "file_count": 9341,
+    "size": 7952472956,
+    "detected_format": ".03,.07,.09,.11,.13,.14,.15,.17,.19,.20,.21,.24",
+    "status": "found",
+    "notes": ""
+  },
+  {
+    "dataset_name": "nasa_battery",
+    "discovered_path": "/home/mao/D2Pred/PythonProject2/BatteryDataSet/DataSet/BatteryAgingARC_unzipped",
+    "file_count": 48,
+    "size": 209671599,
+    "detected_format": ".mat,.txt",
+    "status": "found",
+    "notes": ""
+  }
+]

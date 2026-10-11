@@ -1,0 +1,9 @@
+{
+  "status": "RECORDED_BEFORE_FINAL_RERUN",
+  "hardware": {"gpu": "NVIDIA GeForce RTX 2080 Ti", "gpu_memory_gib_approx": 11, "cuda_runtime": "12.4", "machine": "x86_64"},
+  "os": "Linux 3.10.0-1160.119.1.el7",
+  "python": "3.11.15",
+  "packages": {"torch": "2.6.0+cu124", "numpy": "1.26.4", "pandas": "2.2.3", "scikit-learn": "1.5.2"},
+  "cuda_available_at_audit": true,
+  "note": "This is an environment record only; final rerun must write a complete pip/conda lockfile and git/source checksum manifest."
+}

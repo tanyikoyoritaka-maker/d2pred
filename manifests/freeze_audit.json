@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "checks": {
+    "source_units_38": true,
+    "endpoint_identity_all_38": true,
+    "eligible_units_33": true,
+    "excluded_units_exact": true,
+    "group_counts_16_17": true,
+    "unit_12_16_accom": true,
+    "unit_23_acsim": true,
+    "three_outer_folds": true,
+    "folds_disjoint_and_complete": true,
+    "test_once_each_across_folds": true,
+    "baseline_registry_exact": true
+  },
+  "fold_checks": [
+    {
+      "outer_fold": 0,
+      "disjoint": true,
+      "covers_33": true,
+      "train": 17,
+      "validation": 5,
+      "test": 11
+    },
+    {
+      "outer_fold": 1,
+      "disjoint": true,
+      "covers_33": true,
+      "train": 17,
+      "validation": 5,
+      "test": 11
+    },
+    {
+      "outer_fold": 2,
+      "disjoint": true,
+      "covers_33": true,
+      "train": 17,
+      "validation": 5,
+      "test": 11
+    }
+  ],
+  "source_checksums": {
+    "DI_df.csv": "cc32bbd6e0f3cb7f2e30422dacb821fb13eb2b2bb0b13956cf138a1651d1dd82",
+    "source_group_manifest.csv": "71c46275f46fec316b0364894a0c7b1dfb7b7d189b52b0fdca77df6cc18ebca5",
+    "source_folds.json": "bccef56bf412558cbd5fed954579e008023bb6b6e1f3d1293e1ccfe560b18be4"
+  }
+}

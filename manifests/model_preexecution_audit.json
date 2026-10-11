@@ -1,0 +1,43 @@
+{
+  "audit": "d2pred_final_preexecution_v1",
+  "status": "PASS",
+  "checks": {
+    "fixed_folds_valid": true,
+    "retained_units_33": true,
+    "groups_16_17": true,
+    "migrations_present": true,
+    "group_label_invariant_inputs": true,
+    "joint_fusion_gradients_finite_nonzero": true,
+    "prefix_causality_exact": true,
+    "expert_architecture_versioned": true,
+    "joint_objective_metadata_present": true
+  },
+  "losses": {
+    "rul": 0.08129991590976715,
+    "gradual": 0.14260324835777283,
+    "event": 0.11126043647527695,
+    "trend_fusion": 0.003258955664932728,
+    "total": 0.10701217502355576
+  },
+  "fusion_loss_components": {
+    "candidate": 1.9203660485800356e-05,
+    "anchor": 3.645569677246385e-07,
+    "low_frequency": 0.003239660756662488,
+    "smoothness": 1.1727350202050957e-09
+  },
+  "prefix_causality_max_abs_delta": 0.0,
+  "architecture": {
+    "architecture_version": "d2pred_expert_exact_v1",
+    "trend_fusion": "training-device-only causal Wiener/STL autoencoder phase",
+    "gradual_encoder": "unidirectional_LSTM_64",
+    "raw_residual_descriptors": 12,
+    "token_projection": "Linear(12,64)-ReLU-Linear(64,64)",
+    "event_encoder": "three_block_masked_TransformerEncoder_4_heads",
+    "fusion": "DWC_query_event_key_value_attention_plus_DWC_residual",
+    "output": "Softplus_nonnegative_train_scale_RUL",
+    "joint_loss": "RUL_MSE+0.1_gradual_aux_MSE+0.1_event_aux_MSE",
+    "use_age": false,
+    "joint_trainable_trend_fusion": true,
+    "joint_objective": "RUL+0.1_gradual_aux+0.1_event_aux+0.1_trend_fusion"
+  }
+}

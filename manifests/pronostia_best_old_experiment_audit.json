@@ -1,0 +1,47 @@
+{
+  "audit_status": "LOCATED_AND_REVIEWED",
+  "run_date": "2026-09-16",
+  "run_directory": "/home/mao/D2Pred/PythonProject2/results/expert_rerun_approved_v1/public_paper_nested",
+  "best_result": {
+    "model": "gru_d2pred_v2",
+    "dataset": "pronostia",
+    "RMSE_cycles": 23.816633087091745,
+    "MAE_cycles": 20.437886023721205,
+    "P90AE_cycles": 35.885216076537674,
+    "rank_against_old_public_baselines": 1,
+    "test_devices": 16
+  },
+  "protocol_source": "results/expert_rerun_approved_v1/public_paper_nested/protocol.json",
+  "protocol": {
+    "datasets": ["xjtu_sy", "pronostia"],
+    "models": ["gru_d2pred_v2", "d2pred_expert_exact_v1"],
+    "baseline_comparison_directory": "results/expert_rerun_approved_v1/public_paper_baselines_nested",
+    "seeds": [17, 42, 73],
+    "outer_folds": 3,
+    "split": "nested physical-device 3-fold",
+    "normalization": "inner-training devices only",
+    "maximum_prefixes": 20,
+    "epochs": 50,
+    "fusion_epochs": 10,
+    "batch_size": 8,
+    "checkpoint_selection": "lowest inner-validation primary loss",
+    "early_stopping": "patience 8 beginning after epoch 25",
+    "prefix_start": 30,
+    "prefix_stride": 20,
+    "include_final_endpoint": true,
+    "test_used_for_selection": false,
+    "gradient_clip_norm": 5.0
+  },
+  "reproducibility_artifacts_present": ["protocol.json", "folds.json", "test_predictions.csv", "validation_predictions.csv", "summary_metrics.csv", "device_level_metrics.csv", "seed_ensemble_predictions_with_intervals.csv", "paired_statistical_tests.csv", "computational_cost.csv", "reliability_summary.csv", "checksum_manifest.csv", "run_status.json"],
+  "differences_from_current_public_candidate": [
+    "Old comparison uses historical gru_d2pred_v2, not manuscript-exact d2pred_expert_exact_v1 as the winning model.",
+    "Old public baseline comparison includes LSTM, BiLSTM and IMDSSN, which are now removed.",
+    "Old run covers xjtu_sy and pronostia only; current candidate also covers IMS.",
+    "Old fusion_epochs is 10; current candidate proposal is 30.",
+    "Old protocol explicitly freezes prefix_start=30, prefix_stride=20 and final endpoint inclusion; the current merged public results do not prove these same settings for every source run.",
+    "Old result is a valid historical nested evaluation, but cannot be silently relabelled as the current manuscript-exact benchmark without rerunning or explicitly designating gru_d2pred_v2 as the approved historical reimplementation."
+  ],
+  "usability_decision": "USABLE_AS_AUDITED_HISTORICAL_RESULT_ONLY; NOT_USABLE_AS_CURRENT_FROZEN_MANUSCRIPT_COMPARISON",
+  "rerun_required_for_current_comparison": true,
+  "rerun_requires_human_approval": true
+}

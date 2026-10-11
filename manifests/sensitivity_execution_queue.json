@@ -1,0 +1,22 @@
+{
+  "queue_id": "ac_preprocessing_sensitivity_v1",
+  "status": "QUEUED_AFTER_ABLATION",
+  "depends_on": [
+    "results/acsim_preprocess_ablation_final/run_status.json",
+    "results/accom_preprocess_ablation_final/run_status.json",
+    "results/acall_preprocess_ablation_final/run_status.json"
+  ],
+  "required_dependency_status": "verified_complete",
+  "datasets": ["ACSim", "ACCom", "ACAll"],
+  "factors": {
+    "segmentation_sensitivity_gamma": [1.5, 2.0, 2.5, 3.0, 3.5],
+    "minimum_segment_length": [4, 8, 12, 16],
+    "maximum_change_points": [8, 15, 24],
+    "maximum_output_tokens": [8, 16, 24],
+    "prefix_start_cycle": [10, 30, 50],
+    "prefix_stride": [10, 20, 40],
+    "maximum_prefixes_per_unit": [10, 20, 40]
+  },
+  "launch_rule": "Start immediately after all three dependency run_status files are verified_complete and the ablation audit passes.",
+  "protocol_source": "manifests/complete_experiment_freeze_protocol_v1.json"
+}
