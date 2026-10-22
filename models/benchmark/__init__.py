@@ -189,11 +189,30 @@ class PM2FN(Regressor):
 
 
 class KGHM(Regressor):
-    """Data-driven two-node DWC/EDC relation-graph surrogate plus GRU."""
+    """Scalar-DI KGHM surrogate with causal level/difference relation nodes.
+
+    The external input is a single scalar DI prefix.  The second relation node
+    is constructed causally as the first difference of that prefix; no DWC/EDC
+    tensors or future samples are supplied by the caller.
+    """
     def __init__(self):
         super().__init__(); self.node=nn.Linear(1,32); self.graph=nn.Linear(32,32); self.gru=nn.GRU(64,48,batch_first=True,bidirectional=True); self.head=nn.Linear(96,1)
-    def forward(self,signals):
-        # signals: B,T,2. Correlations are computed per batch using only input windows.
+    def architecture_metadata(self):
+        return {
+            "implementation": type(self).__name__,
+            "source": "models.benchmark",
+            "reproduction_scope": "scalar-DI surrogate reimplementation; not official authors' code",
+            "external_input": "single scalar DI prefix",
+            "causal_derived_nodes": "DI level and first difference",
+            "relation_graph": "two-node batchwise correlation graph",
+            "temporal_model": "bidirectional GRU, 48 units per direction",
+            "output": "sigmoid-normalized scalar RUL",
+        }
+    def forward(self, x):
+        # x: B,T scalar DI prefix.  The derived difference is causal.
+        difference = torch.cat((torch.zeros_like(x[:, :1]), x[:, 1:] - x[:, :-1]), dim=1)
+        signals = torch.stack((x, difference), dim=-1)
+        # Correlations are computed per batch using only the supplied prefix.
         centered=signals-signals.mean(1,keepdim=True); covariance=torch.einsum("bti,btj->bij",centered,centered)/(signals.size(1)-1); scale=torch.sqrt(torch.diagonal(covariance,dim1=1,dim2=2).clamp_min(1e-6)); adjacency=covariance/(scale[:,:,None]*scale[:,None,:]); adjacency=torch.softmax(adjacency,dim=-1)
         nodes=torch.relu(self.node(signals.unsqueeze(-1))); informed=torch.relu(self.graph(torch.einsum("bij,btjh->btih",adjacency,nodes))); sequence=informed.flatten(2); output,_=self.gru(sequence); return self.predict(output[:,-1])
 
