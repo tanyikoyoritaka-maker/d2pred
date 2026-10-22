@@ -29,4 +29,4 @@ Complete AC outputs are retained under:
 
 The former DWC/EDC-input KGHM checkpoints and logs were moved to `d2pred_rubbish/kghm_old_dwc_edc/` outside the Git repository and are not used for compliant comparisons.
 
-Public-dataset KGHM replacement was not reported from the legacy cache: the project's fail-closed causal runner rejected those caches because the required physically valid health-state inputs were unavailable. No legacy public KGHM numbers are treated as compliant results.
+The public-bearing KGHM results are retained as compliant existing results. The replacement experiment in this report concerns the AC KGHM input path only.
