@@ -1,0 +1,25 @@
+{
+  "scope": "post_ablation_contamination_cleanup",
+  "excluded_paths": [
+    "figures/controlled_ablation_v1",
+    "manifests/active_experiment_registry.json",
+    "manifests/controlled_ablation_preexecution_audit.json",
+    "manifests/final_submission_audit.json",
+    "results/controlled_ablation_candidate",
+    "results/controlled_ablation_expert_exact_v3"
+  ],
+  "excluded_parts": [
+    ".git",
+    ".pytest_cache",
+    ".venv",
+    ".venv-linux",
+    "__pycache__"
+  ],
+  "excluded_suffixes": [
+    ".log",
+    ".pyc",
+    ".swp",
+    ".tmp"
+  ],
+  "candidate_integrity": "active materials only; INVALID_LEGACY_ABLATION v3 outputs are archived separately"
+}

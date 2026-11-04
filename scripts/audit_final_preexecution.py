@@ -89,7 +89,7 @@ def main() -> None:
         "expert_architecture_versioned": model.architecture_metadata()["architecture_version"] == "d2pred_expert_exact_v1",
         "joint_objective_metadata_present": "trend_fusion" in model.architecture_metadata()["joint_objective"],
     }
-    payload = {"audit":"d2pred_final_preexecution_v1",
+    payload = {"audit":"expert_exact_full_preexecution_v1",
                "status":"PASS" if all(checks.values()) else "FAIL", "checks":checks,
                "losses":{"rul":float(rul_loss),"gradual":float(gradual_loss),
                          "event":float(event_loss),"trend_fusion":float(fusion_loss),"total":float(total)},

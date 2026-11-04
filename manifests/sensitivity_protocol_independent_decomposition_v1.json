@@ -1,0 +1,96 @@
+{
+  "version": "sensitivity_protocol_independent_decomposition_v1",
+  "status": "verified_complete",
+  "purpose": "One-factor sensitivity anchored to the frozen primary comparison Full model; independent of replacement ablation execution",
+  "decomposition": {
+    "ACSim": "independently fitted prefix-causal DWC/EDC decomposition on ACSim training devices",
+    "ACCom": "independently fitted prefix-causal DWC/EDC decomposition on ACCom training devices",
+    "ACAll": "independently fitted pooled prefix-causal DWC/EDC decomposition on ACAll training devices",
+    "cross_condition_sharing": false
+  },
+  "shared_settings": {
+    "outer_folds": 3,
+    "seeds": [
+      17,
+      42,
+      73
+    ],
+    "retained_devices": 33,
+    "excluded_devices": [
+      1,
+      3,
+      11,
+      35,
+      38
+    ],
+    "target": "RUL cycles divided by train-only maximum initial RUL plus one",
+    "prefix_start": 30,
+    "prefix_stride": 20,
+    "maximum_prefixes": 20,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "batch_size": 8,
+    "maximum_epochs": 50,
+    "fusion_epochs": 50,
+    "early_stopping_patience": 8,
+    "checkpoint_rule": "inner-development validation only",
+    "metric_aggregation": "prefix metrics per device/seed, then average seeds within device, then average devices",
+    "bootstrap": {
+      "unit": "physical device",
+      "replicates": 2000,
+      "seed": 20260915,
+      "interval": "percentile 2.5%/97.5%"
+    }
+  },
+  "one_factor_grid": {
+    "gamma": [
+      1.5,
+      2.0,
+      2.5,
+      3.0,
+      3.5
+    ],
+    "minimum_segment_length": [
+      4,
+      8,
+      12,
+      16
+    ],
+    "maximum_change_points": [
+      8,
+      15,
+      24
+    ],
+    "maximum_tokens": [
+      8,
+      12,
+      16,
+      24,
+      32
+    ],
+    "prefix_start": [
+      10,
+      30,
+      50
+    ],
+    "prefix_stride": [
+      10,
+      20,
+      40
+    ],
+    "maximum_prefixes": [
+      10,
+      20,
+      40
+    ]
+  },
+  "execution_rules": [
+    "Run ACSim, ACCom, and ACAll separately using their final decomposition paths.",
+    "Change exactly one registered factor per run.",
+    "Do not use --shared-decomposition for any condition.",
+    "Do not reuse old sensitivity predictions as final evidence.",
+    "Report RMSE, MAE, P90AE and device-level bootstrap intervals for all three conditions.",
+    "Freeze the selected configuration using inner-development data before outer-test evaluation."
+  ],
+  "execution_manifest": "results/frozen_protocol_final/sensitivity/execution_manifest.json"
+}

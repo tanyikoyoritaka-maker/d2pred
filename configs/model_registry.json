@@ -12,10 +12,16 @@
     "SBi_Transformer",
     "Attn_ResDSCNN"
   ],
-  "removed": [
-    "LSTM",
-    "BiLSTM",
-    "IMDSSN"
-  ],
-  "adapted_label": "architecture-level reimplementation"
+  "adapted_label": "architecture-level reimplementation",
+  "controlled_ablation": {
+    "status": "DRAFT_UNAPPROVED",
+    "protocol_id": "d2pred_strict_ablation_v2",
+    "implementation": "analysis.strict_ablation.ControlledExpertExactD2Pred",
+    "variants": {
+      "manifest": "ablation_final/protocol/ablation_manifest_v2.json",
+      "execution_enabled": false
+    },
+    "evidence_archive": "../d2pred_rubbish/ablation_contamination_cleanup_20261103/evidence/d2pred_final",
+    "review_report": "ablation_final/reports/historical_ablation_recovery_report.md"
+  }
 }

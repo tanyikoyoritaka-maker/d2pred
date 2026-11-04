@@ -1,0 +1,23 @@
+{
+  "audit_id": "submission_status_ablation_recovery_20261103",
+  "status": "historical_ablation_recovery_pending_user_review",
+  "authoritative_registry": "manifests/active_experiment_registry.json",
+  "comparison": "retained_verified_complete",
+  "sensitivity": "retained_verified_complete",
+  "ablation": {
+    "status": "INVALID_LEGACY_ABLATION",
+    "completed_datasets": [],
+    "historical_datasets_with_recomputed_metrics": ["ACSim", "ACCom", "ACAll"],
+    "historical_run_evidence": "partially_verified",
+    "evidence_archive": "../d2pred_rubbish/ablation_contamination_cleanup_20261103/evidence/d2pred_final",
+    "historical_report": "ablation_recovery/reports/historical_ablation_recovery_report.md",
+    "approval_required": true,
+    "formal_protocol_generated": false,
+    "v3_candidate_executable": false,
+    "v3_preexecution_pass_is_authorizing": false
+  },
+  "previous_ablation": "archived_architecture_comparisons",
+  "paper_status": "unchanged; no unapproved historical or v3 candidate results are a paper source",
+  "checksums": "Historical and quarantined evidence are preserved with SHA-256 manifests; current Full comparison files remain protected.",
+  "updated": "2026-11-03T06:00:00+00:00"
+}

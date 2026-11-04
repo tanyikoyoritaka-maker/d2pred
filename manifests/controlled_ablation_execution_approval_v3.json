@@ -1,0 +1,13 @@
+{
+  "status": "revoked_legacy_invalid",
+  "protocol_id": "controlled_ablation_expert_exact_v3",
+  "approved_by": "user; authorization applies only to the superseded v3 candidate and is now revoked by protocol invalidation",
+  "approved_at": "2026-11-03T02:32:40Z",
+  "training_run_count": 216,
+  "launcher_sha256": "c582abefafeaf23e528faf75cd43e6323bb59856e2591661ebf17e228874b12b",
+  "protocol_sha256": "4b206e1bce97cc5326f38806a14b3a54fd133c2ed974ba684469b4234b670a22",
+  "source_checksum_sha256": "84449fc20489e795c0658b74d7cd3df7b73892423e79406702cffb383a020c04",
+  "reference_checksum_sha256": "b7d04b5be4fd766419b6f10fdf4eccf99b5b2517c6768668d6fcb4116ca2b297",
+  "preexecution_audit_sha256": "cf7672034da9b27d0e08cf45cd88a8d3ec14264a730376e0c2a4bf300a3eb34c",
+  "full_reference_replay_audit_sha256": "aeb3f891d58ac3b9b88a07dd0344b37dce76e9a57816cadc85329a2a179f0074"
+}

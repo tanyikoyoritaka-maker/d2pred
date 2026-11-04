@@ -20,12 +20,16 @@ class ExpertExactD2Pred(nn.Module):
                  use_age: bool = False, adaptive_gate: bool = False,
                  age_dimension: int = 2, joint_trend_fusion: bool = True,
                  use_gradual_encoder: bool = True, use_token_projection: bool = True,
-                 use_event_encoder: bool = True, use_guided_fusion: bool = True) -> None:
+                 use_event_encoder: bool = True, use_guided_fusion: bool = True,
+                 use_gradual_branch: bool = True, use_event_branch: bool = True,
+                 direct_di: bool = False) -> None:
         super().__init__()
         if event_layers != 3:
             raise ValueError("The frozen reviewer protocol requires exactly three event blocks")
         self.gradual_encoder = nn.LSTM(1, hidden_dimension, batch_first=True)
         self.gradual_projection = nn.Linear(hidden_dimension, hidden_dimension)
+        self.di_encoder = nn.LSTM(1, hidden_dimension, batch_first=True) if direct_di else None
+        self.di_projection = nn.Linear(hidden_dimension, hidden_dimension) if direct_di else None
         self.use_age = use_age
         self.age_dimension = age_dimension
         self.adaptive_gate = adaptive_gate
@@ -34,6 +38,9 @@ class ExpertExactD2Pred(nn.Module):
         self.use_token_projection = use_token_projection
         self.use_event_encoder = use_event_encoder
         self.use_guided_fusion = use_guided_fusion
+        self.use_gradual_branch = use_gradual_branch
+        self.use_event_branch = use_event_branch
+        self.direct_di = direct_di
         self.trend_fusion = StageAwareTrendAutoencoder() if joint_trend_fusion else None
         self.age_projection = (
             nn.Sequential(nn.Linear(age_dimension, hidden_dimension // 2), nn.SiLU(),
@@ -63,7 +70,13 @@ class ExpertExactD2Pred(nn.Module):
                           nn.SiLU(), nn.Linear(hidden_dimension // 2, 1), nn.Sigmoid())
             if adaptive_gate else None
         )
-        fusion_width = hidden_dimension * (3 if use_age else 2)
+        # Legacy optional interfaces remain for checkpoint compatibility.
+        # Registered single-module controls use ControlledD2Pred, which retains
+        # the gradual direct input and the 128-dimensional head interface.
+        fusion_width = hidden_dimension * (
+            (3 if use_age else 2) if use_guided_fusion and use_gradual_branch and use_event_branch
+            else 1
+        )
         self.regression = nn.Sequential(
             nn.Linear(fusion_width, hidden_dimension), nn.ReLU(),
             nn.Dropout(dropout), nn.Linear(hidden_dimension, 1), nn.Softplus(),
@@ -75,37 +88,52 @@ class ExpertExactD2Pred(nn.Module):
 
     def forward(self, inputs: dict[str, torch.Tensor], return_details: bool = False):
         trend_fusion_details = None
-        gradual_input = inputs["dwc"]
-        if self.trend_fusion is not None:
+        gradual_input = inputs["di"] if self.direct_di else inputs["dwc"]
+        if self.trend_fusion is not None and self.use_gradual_branch:
             gradual_input, trend_fusion_details = self.trend_fusion.forward_components(
                 inputs["trend_candidates"], inputs["sequence_mask"],
                 inputs["stable_fraction"], inputs["wiener_reliability"],
             )
-        if self.use_gradual_encoder:
+        if self.direct_di:
+            _, (di_hidden, _) = self.di_encoder(gradual_input.unsqueeze(-1))
+            gradual = self.di_projection(di_hidden[-1])
+        elif not self.use_gradual_branch:
+            gradual = torch.zeros(
+                (gradual_input.shape[0], self.gradual_projection.out_features),
+                device=gradual_input.device, dtype=gradual_input.dtype,
+            )
+        elif self.use_gradual_encoder:
             _, (hidden, _) = self.gradual_encoder(gradual_input.unsqueeze(-1))
             gradual = self.gradual_projection(hidden[-1])
         else:
             gradual = gradual_input.mean(1, keepdim=True).expand(-1, self.gradual_projection.out_features)
-        valid = inputs["token_mask"].bool()
-        if not self.use_token_projection:
+        valid = inputs["token_mask"].bool() if self.use_event_branch else torch.zeros_like(inputs["token_mask"].bool())
+        if not self.use_event_branch:
+            events = torch.zeros(
+                (gradual.shape[0], inputs["tokens"].shape[1], gradual.shape[-1]),
+                device=gradual.device, dtype=gradual.dtype,
+            )
+            event = torch.zeros_like(gradual)
+            attention = None
+        elif not self.use_token_projection:
             raw = inputs["tokens"]
             events = torch.nn.functional.pad(raw, (0, gradual.shape[-1] - raw.shape[-1]))
         else:
             events = self.token_projection(inputs["tokens"])
         events = self.position(events)
-        if self.use_event_encoder:
+        if self.use_event_branch and self.use_event_encoder:
             events = self.event_encoder(events, src_key_padding_mask=~valid)
-        if self.use_guided_fusion:
+        if self.use_event_branch and self.use_guided_fusion:
             attended, attention = self.guided_fusion(
                 self.query(gradual).unsqueeze(1), self.key(events), self.value(events),
                 key_padding_mask=~valid, need_weights=True, average_attn_weights=False,
             )
             event = attended[:, 0]
-        else:
+        elif self.use_event_branch:
             weights = valid.float().unsqueeze(-1)
             event = (events * weights).sum(1) / weights.sum(1).clamp_min(1.0)
             attention = None
-        fused = self.fusion_norm(gradual + event)
+        fused = self.fusion_norm(gradual + event) if self.use_guided_fusion and self.use_event_branch else event
         gate = None
         age_feature = None
         if self.age_projection is not None:
@@ -116,8 +144,8 @@ class ExpertExactD2Pred(nn.Module):
                 gate_input = torch.cat((gate_input, age_feature), dim=-1)
             gate = self.gate(gate_input)
             fused = self.fusion_norm(gradual + gate * event)
-        regression_inputs = [gradual, fused]
-        if age_feature is not None:
+        regression_inputs = [gradual, fused] if self.use_guided_fusion and self.use_event_branch else ([gradual] if not self.use_event_branch else [event])
+        if age_feature is not None and self.use_guided_fusion:
             regression_inputs.append(age_feature)
         prediction = self.regression(torch.cat(regression_inputs, dim=-1)).squeeze(-1)
         details = {
@@ -144,6 +172,9 @@ class ExpertExactD2Pred(nn.Module):
             "joint_loss": "RUL_MSE+0.1_gradual_aux_MSE+0.1_event_aux_MSE+0.1_trend_fusion_loss",
             "use_age": self.use_age,
             "joint_trainable_trend_fusion": self.joint_trend_fusion,
+            "direct_di": self.direct_di,
+            "use_gradual_branch": self.use_gradual_branch,
+            "use_event_branch": self.use_event_branch,
             "module_ablation_flags": {"gradual_encoder": self.use_gradual_encoder,
                 "token_projection": self.use_token_projection,
                 "event_encoder": self.use_event_encoder,

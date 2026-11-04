@@ -1,6 +1,10 @@
 {
-  "audit": "d2pred_final_preexecution_v1",
-  "status": "PASS",
+  "audit": "controlled_ablation_preexecution_v1",
+  "status": "INVALID_LEGACY_ABLATION",
+  "historical_execution_status": "PASS",
+  "execution_authorization": false,
+  "disposition": "The audit evaluated the rejected v3 implementation. Its PASS result is retained as historical evidence and does not authorize or validate the historical ablation family or a future protocol.",
+  "evidence_archive": "../../d2pred_rubbish/ablation_contamination_cleanup_20261103/supplemental_quarantine/active_manifests/model_preexecution_audit_pre_cleanup.json",
   "checks": {
     "fixed_folds_valid": true,
     "retained_units_33": true,
@@ -10,7 +14,17 @@
     "joint_fusion_gradients_finite_nonzero": true,
     "prefix_causality_exact": true,
     "expert_architecture_versioned": true,
-    "joint_objective_metadata_present": true
+    "joint_objective_metadata_present": true,
+    "unchanged_reference_graph_exact": true,
+    "no_wiener_finite_backward_and_input_isolation": true,
+    "no_stl_finite_backward_and_input_isolation": true,
+    "no_autoencoder_fusion_finite_backward_and_input_isolation": true,
+    "no_fusion_finite_backward_and_input_isolation": true,
+    "no_dwc_finite_backward_and_input_isolation": true,
+    "no_edc_finite_backward_and_input_isolation": true,
+    "no_aep_finite_backward_and_input_isolation": true,
+    "direct_di_control_finite_backward_and_input_isolation": true,
+    "fixed_segmentation_retains_nonzero_real_descriptors": true
   },
   "losses": {
     "rul": 0.08129991590976715,
@@ -35,9 +49,18 @@
     "event_encoder": "three_block_masked_TransformerEncoder_4_heads",
     "fusion": "DWC_query_event_key_value_attention_plus_DWC_residual",
     "output": "Softplus_nonnegative_train_scale_RUL",
-    "joint_loss": "RUL_MSE+0.1_gradual_aux_MSE+0.1_event_aux_MSE",
+    "joint_loss": "RUL_MSE+0.1_gradual_aux_MSE+0.1_event_aux_MSE+0.1_trend_fusion_loss",
     "use_age": false,
     "joint_trainable_trend_fusion": true,
+    "direct_di": false,
+    "use_gradual_branch": true,
+    "use_event_branch": true,
+    "module_ablation_flags": {
+      "gradual_encoder": true,
+      "token_projection": true,
+      "event_encoder": true,
+      "guided_fusion": true
+    },
     "joint_objective": "RUL+0.1_gradual_aux+0.1_event_aux+0.1_trend_fusion"
   }
 }

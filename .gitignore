@@ -16,6 +16,20 @@ __pycache__/
 !checksum_manifest.csv
 *.parquet
 *.zip
+!manifests/controlled_ablation_source_checksums.csv
+!manifests/controlled_ablation_reference_checksums.csv
+!manifests/paper_checksum_manifest.csv
+
+# Keep generated strict-v2 runs out of Git; retain compact batch and evaluation evidence.
+/ablation_final/outputs/strict_ablation_v2/**
+!/ablation_final/outputs/strict_ablation_v2/
+!/ablation_final/outputs/strict_ablation_v2/batch_run_manifest.json
+!/ablation_final/outputs/strict_ablation_v2/evaluation/
+/ablation_final/outputs/strict_ablation_v2/evaluation/**
+!/ablation_final/outputs/strict_ablation_v2/evaluation/metrics_summary.csv
+!/ablation_final/outputs/strict_ablation_v2/evaluation/metrics_manifest.json
+!/ablation_final/outputs/strict_ablation_v2/evaluation/prediction_inputs_manifest.json
+!/ablation_final/outputs/strict_ablation_v2/evaluation/superseded_v2_runner_manifest.json
 
 # Local runtime and environment files
 .venv/

@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import argparse
 from copy import deepcopy
-from dataclasses import replace
 from dataclasses import asdict
 from datetime import datetime, timezone
 import hashlib
@@ -37,36 +36,35 @@ from analysis.theory_aligned_decomposition import (
 )
 from models.benchmark import build_model as build_baseline
 from run_stage_aware_aefusion_ac import (
-    DECOMPOSITION, STABLE, endpoints, train_fusion,
+    DECOMPOSITION, STABLE, endpoints as _default_endpoints, train_fusion,
 )
 
 
 ROOT = Path(__file__).resolve().parent
+DATA_ROOT = ROOT
 DEFAULT_OUT = ROOT / "results/ac_nested_gru_final"
 EXCLUDED_UNITS = {1, 3, 11, 35, 38}
 SEEDS = (17, 42, 73)
-SENSITIVITY = {"gamma": 2.5, "min_size": 8, "max_points": 15, "max_tokens": 16,
-               "prefix_start": 30, "prefix_stride": 20, "max_prefixes": 20}
-HEALTHY_OVERRIDE = {}
-HEALTHY_METHOD = "current"
-HEALTHY_PARAMS = {}
-WIENER_MODE = "standard"
-REGIME_MODE = "fixed"
-REGIME_ALPHA = 0.5
+
+
+def endpoints(length: int, start: int = 30, stride: int = 20,
+              maximum: int = 20) -> list[int]:
+    """Generate the registered causal prefix grid with explicit overrides."""
+    start = max(1, int(start)); stride = max(1, int(stride)); maximum = max(1, int(maximum))
+    values = list(range(min(start, length), length + 1, stride))
+    if not values or values[-1] != length:
+        values.append(length)
+    if len(values) > maximum:
+        indices = np.linspace(0, len(values) - 1, maximum).round().astype(int)
+        values = [values[index] for index in indices]
+    return values
 CORE_MODELS = (
     "gru_d2pred_v2", "d2pred_expert_exact_v1", "d2pred_expert_age_v1",
     "d2pred_expert_cycle_v1", "d2pred_expert_prefix_v1",
     "d2pred_expert_age_calibrated_v1", "d2pred_expert_age_gate_v1",
     "d2pred_expert_age_gate_late_v1", "d2pred_expert_age_gate_late_mono_v1",
     "CNN", "Transformer",
-    "TCN_BiGRU", "KGHM", "ablation_no_dwc", "ablation_no_edc",
-    "ablation_no_tokens", "ablation_no_fusion", "ablation_no_decomposition",
-    "ablation_no_trend_fusion", "ablation_no_gradual_encoder",
-    "ablation_no_token_projection", "ablation_no_event_encoder",
-    "ablation_no_guided_fusion", "ablation_no_joint_loss",
-    "ablation_no_wiener", "ablation_no_stl", "ablation_no_autoencoder_fusion",
-    "ablation_preprocess_no_dwc", "ablation_preprocess_no_edc",
-    "ablation_preprocess_no_decomposition", "ablation_no_aep",
+    "TCN_BiGRU", "KGHM",
 )
 FULL_BASELINES = (
     "CNN", "DAG_network", "PM2FN",
@@ -194,11 +192,13 @@ def resize(values: np.ndarray, length: int = 128) -> np.ndarray:
     ).astype(np.float32)
 
 
-def event_tokens(edc: np.ndarray) -> tuple[np.ndarray, np.ndarray, list[int]]:
-    points = causal_change_points(edc, sensitivity=SENSITIVITY["gamma"],
-                                  min_size=SENSITIVITY["min_size"], max_points=SENSITIVITY["max_points"])
+def event_tokens(edc: np.ndarray, *, sensitivity: float = 2.5,
+                 min_size: int = 8, max_points: int = 15,
+                 max_tokens: int = 16) -> tuple[np.ndarray, np.ndarray, list[int]]:
+    points = causal_change_points(edc, sensitivity=sensitivity,
+                                  min_size=min_size, max_points=max_points)
     token_values = segment_tokens(edc, points, mode="stats")
-    tokens, mask = pad_tokens(token_values, SENSITIVITY["max_tokens"])
+    tokens, mask = pad_tokens(token_values, max_tokens)
     return tokens.astype(np.float32), mask.astype(bool), points
 
 
@@ -209,27 +209,49 @@ def build_fold_rows(
     device: torch.device,
     fusion_epochs: int,
     mix_groups: bool = False,
-    shared_decomposition: bool = False,
+    aep_config: dict | None = None,
+    prefix_config: dict | None = None,
 ) -> list[dict]:
     cache = out / "cache" / f"outer_fold_{fold['outer_fold']}_rows.pt"
+    cache_signature = {"aep": aep_config or {"sensitivity": 2.5,
+                                             "min_size": 8,
+                                             "max_points": 15,
+                                             "max_tokens": 16},
+                      "prefix": prefix_config or {"start": 30, "stride": 20,
+                                                   "maximum": 20},
+                      "mix_groups": mix_groups,
+                      "shared_decomposition": False}
     if cache.exists():
         payload = torch.load(cache, map_location="cpu", weights_only=False)
-        expected_cache_version = 10 if REGIME_MODE != "fixed" else (3 if shared_decomposition else 2)
-        if payload.get("cache_version") == expected_cache_version:
+        expected_cache_version = 2
+        cache_matches = payload.get("cache_signature") == cache_signature
+        # The frozen ACAll primary cache predates cache signatures.  It is
+        # reusable only for the registered default AEP/prefix configuration.
+        legacy_default = (payload.get("cache_signature") is None
+                          and cache_signature == {"aep": {"sensitivity": 2.5,
+                              "min_size": 8, "max_points": 15, "max_tokens": 16},
+                              "prefix": {"start": 30, "stride": 20, "maximum": 20},
+                              "mix_groups": True, "shared_decomposition": False})
+        fusion_checkpoint = (out / "fusion" / f"outer_fold_{fold['outer_fold']}"
+                             / "ACAll" / "fusion_checkpoint.pt")
+        # A prefix cache is not sufficient to resume a fold: the fold-specific
+        # trend-fusion checkpoint must also exist in this output package.
+        # This prevents copied primary caches from bypassing fusion fitting.
+        if (payload.get("cache_version") == expected_cache_version
+                and (cache_matches or legacy_default)
+                and fusion_checkpoint.exists()):
             return payload["rows"]
     assigned = split_frame(frame, fold)
     models = {}
-    if REGIME_MODE in {"fixed_grouped", "prefix_gated", "shared_specific"}:
-        group_names = ("ACAll", "ACCom", "ACSim")
+    if mix_groups:
+        group_names = ("ACAll",)
+    elif frame.group.nunique() == 1:
+        # A single-group run (e.g. --only-group ACSim/ACCom) must not try to
+        # fit an empty fusion dataset for the other cohort.
+        group_names = (str(frame.group.iloc[0]),)
     else:
-        group_names = ("ACAll",) if (mix_groups or shared_decomposition) else ("ACCom", "ACSim")
-    present_groups = set(assigned.group.astype(str).unique())
-    group_names = tuple(group for group in group_names if group in present_groups or group == "ACAll")
+        group_names = ("ACCom", "ACSim")
     stable_config = {"ACAll": STABLE["ACCom"], **STABLE}
-    if HEALTHY_OVERRIDE:
-        stable_config = {
-            key: replace(value, **HEALTHY_OVERRIDE) for key, value in stable_config.items()
-        }
     for group in group_names:
         group_frame = assigned.copy() if group == "ACAll" else assigned[assigned.group.eq(group)].copy()
         group_frame["split"] = group_frame.split.replace({"validation": "val"})
@@ -251,58 +273,21 @@ def build_fold_rows(
             "test_units_used": False,
             "best_epoch": best_epoch,
         }, run_dir / "fusion_checkpoint.pt")
-    # Prefix-gating threshold is estimated from training devices only.
-    gate_threshold = 0.0
-    if REGIME_MODE == "prefix_gated":
-        feats = []
-        for unit, uf in assigned[assigned.split.eq("train")].groupby("unit"):
-            values = uf.sort_values("cycle").DI.to_numpy(np.float32)
-            n = min(len(values), 20)
-            feats.append((float(np.polyfit(np.arange(n), values[:n], 1)[0]) if n >= 2 else 0.0,
-                          str(uf.group.iloc[0])))
-        by_group = {g: [v for v, label in feats if label == g] for g in ("ACSim", "ACCom")}
-        if by_group["ACSim"] and by_group["ACCom"]:
-            gate_threshold = float((np.median(by_group["ACSim"]) + np.median(by_group["ACCom"])) / 2.0)
-        elif feats:
-            gate_threshold = float(np.median([v for v, _ in feats]))
     rows = []
     for unit, unit_frame in assigned.groupby("unit", sort=True):
         unit_frame = unit_frame.sort_values("cycle")
         di_full = unit_frame.DI.to_numpy(np.float32)
         group = str(unit_frame.group.iloc[0])
         role = str(unit_frame.split.iloc[0])
-        length = len(unit_frame)
-        values = list(range(min(SENSITIVITY["prefix_start"], length), length + 1, SENSITIVITY["prefix_stride"]))
-        if not values or values[-1] != length:
-            values.append(length)
-        if len(values) > SENSITIVITY["max_prefixes"]:
-            indices = np.linspace(0, len(values) - 1, SENSITIVITY["max_prefixes"]).round().astype(int)
-            values = [values[index] for index in indices]
-        for end in values:
+        for end in endpoints(len(unit_frame), **(prefix_config or {})):
             observed = unit_frame.iloc[:end]
             di = di_full[:end]
-            if REGIME_MODE == "prefix_gated":
-                n_gate = min(len(di), 20)
-                slope = float(np.polyfit(np.arange(n_gate), di[:n_gate], 1)[0]) if n_gate >= 2 else 0.0
-                decomposition_group = "ACCom" if slope >= gate_threshold else "ACSim"
-            else:
-                decomposition_group = "ACAll" if shared_decomposition else group
+            decomposition_group = group
             dwc, edc, metadata = stage_aware_causal_decompose(
                 di, models[decomposition_group], stable_config[decomposition_group],
                 DECOMPOSITION, device, return_candidates=True,
-                healthy_method=HEALTHY_METHOD, healthy_params=HEALTHY_PARAMS,
-                wiener_mode=WIENER_MODE,
             )
-            if REGIME_MODE == "shared_specific":
-                shared_dwc, _, shared_meta = stage_aware_causal_decompose(
-                    di, models["ACAll"], stable_config["ACAll"], DECOMPOSITION, device,
-                    return_candidates=True, healthy_method=HEALTHY_METHOD, healthy_params=HEALTHY_PARAMS,
-                )
-                dwc = (shared_dwc + REGIME_ALPHA * (dwc - shared_dwc)).astype(np.float32)
-                edc = (di - dwc).astype(np.float32)
-                metadata = {**metadata, "shared_specific_alpha": REGIME_ALPHA,
-                            "shared_wiener": shared_meta.get("wiener", {})}
-            tokens, mask, points = event_tokens(edc)
+            tokens, mask, points = event_tokens(edc, **(aep_config or {}))
             rows.append({
                 "unit": int(unit), "group": group, "split": role,
                 "endpoint": float(observed.cycle.iloc[-1]), "prefix_length": int(end),
@@ -314,75 +299,21 @@ def build_fold_rows(
                 )).astype(np.float32),
                 "stable_fraction": np.float32(metadata["stable_fraction"]),
                 "wiener_reliability": np.float32(metadata["wiener_reliability"]),
-                "healthy_detector": str(metadata.get("wiener", {}).get("detector", HEALTHY_METHOD)),
-                "healthy_stage_end": int(metadata.get("wiener", {}).get("stable_end", 0)),
-                "wiener_fit_len": int(metadata.get("wiener", {}).get("fit_len", 0)),
-                "wiener_beta_0": float(metadata.get("wiener", {}).get("beta_0", np.nan)),
-                "wiener_mu": float(metadata.get("wiener", {}).get("mu", np.nan)),
-                "wiener_sigma": float(metadata.get("wiener", {}).get("sigma", np.nan)),
-                "wiener_fit_rmse": float(metadata.get("wiener", {}).get("fit_rmse", np.nan)),
                 "tokens": tokens, "token_mask": mask,
                 "change_points": points,
                 "edc_identity_error": float(metadata["edc_identity_max_abs_error"]),
             })
     cache.parent.mkdir(parents=True, exist_ok=True)
-    torch.save({"cache_version": 10 if REGIME_MODE != "fixed" else (3 if shared_decomposition else 2),
+    torch.save({"cache_version": 2,
+                "cache_signature": cache_signature,
                 "fold": fold, "rows": rows}, cache)
-    diagnostic_rows = []
-    for row in rows:
-        diagnostic_rows.append({key: row.get(key) for key in (
-            "unit", "group", "split", "prefix_length", "healthy_detector",
-            "healthy_stage_end", "wiener_fit_len", "wiener_beta_0", "wiener_mu",
-            "wiener_sigma", "wiener_fit_rmse", "stable_fraction", "wiener_reliability",
-            "change_points")})
-    diagnostic_dir = out / "diagnostics"
-    diagnostic_dir.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame(diagnostic_rows).to_csv(
-        diagnostic_dir / f"outer_fold_{fold['outer_fold']}_healthy_stage.csv", index=False
-    )
     return rows
 
 
 def variant_rows(rows: list[dict], model_name: str) -> list[dict]:
-    result = []
-    for source in rows:
-        row = {**source}
-        if model_name in {"ablation_no_wiener", "ablation_no_stl", "ablation_no_autoencoder_fusion"}:
-            candidates = source["trend_candidates"]
-            if model_name == "ablation_no_wiener":
-                row["dwc"] = candidates[1].copy()
-            elif model_name == "ablation_no_stl":
-                row["dwc"] = candidates[0].copy()
-            else:
-                row["dwc"] = candidates.mean(axis=0).astype(np.float32)
-            row["edc"] = (source["di"] - row["dwc"]).astype(np.float32)
-            row["tokens"], row["token_mask"], row["change_points"] = event_tokens(row["edc"])
-        elif model_name == "ablation_preprocess_no_dwc":
-            row["dwc"] = np.zeros_like(source["dwc"])
-            row["trend_candidates"] = np.zeros_like(source["trend_candidates"])
-        elif model_name == "ablation_preprocess_no_edc":
-            row["edc"] = np.zeros_like(source["edc"])
-            row["tokens"] = np.zeros_like(source["tokens"])
-            row["token_mask"] = np.zeros_like(source["token_mask"])
-            row["token_mask"][0] = True
-            row["change_points"] = []
-        elif model_name in {"ablation_no_decomposition", "ablation_preprocess_no_decomposition"}:
-            row["dwc"] = source["di"].copy()
-            row["edc"] = np.zeros_like(source["edc"])
-            row["tokens"] = np.zeros_like(source["tokens"])
-            row["token_mask"] = np.zeros_like(source["token_mask"])
-            row["token_mask"][0] = True
-            row["trend_candidates"] = np.stack((source["di"], source["di"])).astype(np.float32)
-            row["change_points"] = []
-        elif model_name == "ablation_no_aep":
-            length = len(source["edc"])
-            fixed_points = sorted({max(1, min(length - 1, int(round(length * q)))) for q in (.25, .5, .75)})
-            token_values = segment_tokens(source["edc"], fixed_points, mode="stats")
-            row["tokens"], row["token_mask"] = pad_tokens(token_values, 16)
-            row["token_mask"] = row["token_mask"].astype(bool)
-            row["change_points"] = fixed_points
-        result.append(row)
-    return result
+    if model_name.startswith(("ablation_", "controlled_ablation_")):
+        raise ValueError("Ablation aliases are disabled pending historical implementation review")
+    return [dict(source) for source in rows]
 
 
 def fit_normalization(rows: list[dict]) -> dict:
@@ -395,10 +326,15 @@ def fit_normalization(rows: list[dict]) -> dict:
     valid = np.concatenate([
         row["tokens"][row["token_mask"]] for row in train
     ]).astype(np.float64)
-    result["token_mean"] = valid.mean(axis=0).tolist()
-    std = valid.std(axis=0)
-    std[std < 1e-6] = 1.0
-    result["token_std"] = std.tolist()
+    if valid.size:
+        result["token_mean"] = valid.mean(axis=0).tolist()
+        std = valid.std(axis=0)
+        std[std < 1e-6] = 1.0
+        result["token_std"] = std.tolist()
+    else:
+        width = int(train[0]["tokens"].shape[-1])
+        result["token_mean"] = np.zeros(width, dtype=float).tolist()
+        result["token_std"] = np.ones(width, dtype=float).tolist()
     result["fit_units"] = sorted({row["unit"] for row in train})
     return result
 
@@ -445,11 +381,42 @@ class PrefixDataset(Dataset):
         return inputs, torch.tensor(label), index
 
 
+class RawDISingleChannel(nn.Module):
+    """Strict no-decomposition baseline: one direct raw-DI vector channel.
+
+    This model deliberately has no DWC encoder, EDC encoder, decomposition,
+    token branch, or recurrent substitute.  The fixed-length causal DI prefix
+    is normalized by PrefixDataset and mapped directly to the RUL output.
+    """
+
+    def __init__(self, width: int = 128, hidden: int = 64) -> None:
+        super().__init__()
+        self.regression = nn.Sequential(
+            nn.Linear(width, hidden), nn.ReLU(), nn.Dropout(0.15),
+            nn.Linear(hidden, 1), nn.Sigmoid(),
+        )
+
+    def forward(self, inputs: dict[str, torch.Tensor], return_details: bool = False):
+        prediction = self.regression(inputs["di"]).squeeze(-1)
+        if return_details:
+            return {"prediction": prediction}
+        return prediction
+
+    def architecture_metadata(self) -> dict:
+        return {
+            "architecture_version": "raw_di_single_channel_v1",
+            "input": "causal raw DI prefix only",
+            "dwc_encoder": None, "edc_encoder": None, "event_encoder": None,
+            "decomposition": False,
+            "output": "sigmoid_fraction_of_train_only_target_scale",
+        }
+
+
 def make_model(name: str) -> nn.Module:
     if name == "gru_d2pred_v2":
         return FrozenGRUD2Pred()
     if name == "d2pred_expert_exact_v1":
-        return ExpertExactD2Pred(maximum_tokens=SENSITIVITY["max_tokens"])
+        return ExpertExactD2Pred()
     if name in {
         "d2pred_expert_age_v1", "d2pred_expert_age_calibrated_v1",
         "d2pred_expert_age_gate_v1", "d2pred_expert_age_gate_late_v1",
@@ -465,55 +432,21 @@ def make_model(name: str) -> nn.Module:
                 "d2pred_expert_age_gate_late_mono_v1",
             }, age_dimension=age_dimension,
         )
-    strict = {
-        "ablation_no_trend_fusion": {"joint_trend_fusion": False},
-        "ablation_no_gradual_encoder": {"use_gradual_encoder": False},
-        "ablation_no_token_projection": {"use_token_projection": False},
-        "ablation_no_event_encoder": {"use_event_encoder": False},
-        "ablation_no_guided_fusion": {"use_guided_fusion": False},
-    }
-    if name in strict:
-        return ExpertExactD2Pred(maximum_tokens=SENSITIVITY["max_tokens"], **strict[name])
-    if name == "ablation_no_joint_loss":
-        return ExpertExactD2Pred(maximum_tokens=SENSITIVITY["max_tokens"])
-    if name in {
-        "ablation_no_wiener", "ablation_no_stl", "ablation_no_autoencoder_fusion",
-        "ablation_preprocess_no_dwc", "ablation_preprocess_no_decomposition",
-    }:
-        return ExpertExactD2Pred(maximum_tokens=SENSITIVITY["max_tokens"], joint_trend_fusion=False)
-    if name in {"ablation_preprocess_no_edc", "ablation_no_aep"}:
-        return ExpertExactD2Pred(maximum_tokens=SENSITIVITY["max_tokens"])
-    # Legacy names are retained for provenance but are not part of the strict run.
-    if name == "ablation_no_dwc":
-        return FrozenGRUD2Pred(use_dwc=False)
-    if name == "ablation_no_edc":
-        return FrozenGRUD2Pred(use_edc=False, use_tokens=False)
-    if name == "ablation_no_tokens":
-        return FrozenGRUD2Pred(use_tokens=False)
-    if name == "ablation_no_fusion":
-        return FrozenGRUD2Pred(fusion="average_prediction")
-    if name == "ablation_no_decomposition":
-        return FrozenGRUD2Pred()
+    if name.startswith(("ablation_", "controlled_ablation_")):
+        raise ValueError("Ablation aliases are disabled pending historical implementation review")
     return build_baseline(name)
 
 
 def forward_model(model: nn.Module, name: str, inputs: dict[str, torch.Tensor]):
-    if name.startswith("gru_") or name.startswith("d2pred_") or name.startswith("ablation_"):
+    if name.startswith(("gru_", "d2pred_", "ablation_")):
         return model(inputs)
     if name == "KGHM":
-        return model(torch.stack((inputs["dwc"], inputs["edc"]), dim=-1))
+        return model(inputs["di"])
     return model(inputs["di"])
 
 
 def is_expert(name: str) -> bool:
-    return name.startswith("d2pred_expert_") or name in {
-        "ablation_no_trend_fusion", "ablation_no_gradual_encoder",
-        "ablation_no_token_projection", "ablation_no_event_encoder",
-        "ablation_no_guided_fusion", "ablation_no_joint_loss",
-        "ablation_no_wiener", "ablation_no_stl", "ablation_no_autoencoder_fusion",
-        "ablation_preprocess_no_dwc", "ablation_preprocess_no_edc",
-        "ablation_preprocess_no_decomposition", "ablation_no_aep",
-    }
+    return name.startswith("d2pred_expert_")
 
 
 def is_age_expert(name: str) -> bool:
@@ -600,7 +533,6 @@ def predict(
 def train_one(
     rows: list[dict], name: str, fold: int, seed: int, out: Path,
     device: torch.device, epochs: int, batch_size: int,
-    fusion_checkpoint_path: Path | None = None,
 ) -> tuple[list[dict], list[dict], dict]:
     seed_everything(seed)
     rows = variant_rows(rows, name)
@@ -618,12 +550,17 @@ def train_one(
         for role, values in parts.items()
     }
     model = make_model(name).to(device)
-    if isinstance(model, ExpertExactD2Pred) and model.trend_fusion is not None:
-        fusion_path = fusion_checkpoint_path or (
-            out / "fusion" / f"outer_fold_{fold}" / "ACAll" / "fusion_checkpoint.pt"
-        )
+    if (isinstance(model, ExpertExactD2Pred) and model.trend_fusion is not None
+            and getattr(model, "trend_loss_active", True)):
+        # The trend-fusion checkpoint is condition-specific: ACSim and ACCom
+        # use their own independently fitted decompositions, while ACAll uses
+        # its pooled ACAll decomposition.  Never force a group-specific run
+        # to consume an ACAll checkpoint.
+        groups = {str(row["group"]) for row in rows}
+        fusion_group = "ACAll" if groups == {"ACAll"} else next(iter(groups))
+        fusion_path = out / "fusion" / f"outer_fold_{fold}" / fusion_group / "fusion_checkpoint.pt"
         if not fusion_path.exists():
-            raise RuntimeError("Strict expert joint fusion requires the shared ACAll fusion checkpoint")
+            raise RuntimeError(f"Missing condition-specific trend-fusion checkpoint: {fusion_path}")
         fusion_checkpoint = torch.load(fusion_path, map_location=device, weights_only=False)
         model.trend_fusion.load_state_dict(fusion_checkpoint["model_state_dict"])
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
@@ -650,16 +587,19 @@ def train_one(
                     if is_expert(name):
                         details = model(inputs, return_details=True)
                         loss = criterion(details["prediction"], labels)
-                        if name != "ablation_no_joint_loss":
+                        if getattr(model, "gradual_loss_active", True):
                             loss = loss + 0.1 * criterion(details["gradual_prediction"], labels)
+                        if getattr(model, "event_loss_active", True):
                             loss = loss + 0.1 * criterion(details["event_prediction"], labels)
-                            if details["trend_fusion_details"] is not None:
-                                fusion_loss, _ = stage_aware_fusion_loss(
-                                    details["fused_dwc"], inputs["di"], inputs["trend_candidates"],
-                                    inputs["sequence_mask"], details["trend_fusion_details"],
-                                    model.trend_fusion.config,
-                                )
-                                loss = loss + 0.1 * fusion_loss
+                        if details["trend_fusion_details"] is None and getattr(model, "trend_loss_active", True):
+                            raise RuntimeError("Strict expert model did not expose trainable trend fusion")
+                        if getattr(model, "trend_loss_active", True):
+                            fusion_loss, _ = stage_aware_fusion_loss(
+                                details["fused_dwc"], inputs["di"], inputs["trend_candidates"],
+                                inputs["sequence_mask"], details["trend_fusion_details"],
+                                model.trend_fusion.config,
+                            )
+                            loss = loss + 0.1 * fusion_loss
                         if uses_late_loss(name):
                             late_weight = 1.0 + 0.75 * (1.0 - labels.detach()).clamp(0.0, 1.0)
                             loss = loss + 0.25 * (late_weight * (details["prediction"] - labels) ** 2).mean()
@@ -670,6 +610,8 @@ def train_one(
                     else:
                         loss = criterion(forward_model(model, name, inputs), labels)
                     if role == "train":
+                        if not torch.isfinite(loss):
+                            raise FloatingPointError(f"Nonfinite training objective: {name}, fold {fold}, seed {seed}")
                         loss.backward()
                         torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
                         optimizer.step()
@@ -760,36 +702,47 @@ def summarize(unit: pd.DataFrame) -> pd.DataFrame:
 
 
 def paired_tests(unit: pd.DataFrame) -> pd.DataFrame:
-    averaged = unit.groupby(["model", "group", "unit"], as_index=False).RMSE_cycles.mean()
+    reference = "d2pred_expert_exact_v1"
+    metric_map = {"RMSE": "RMSE_cycles", "MAE": "MAE_cycles",
+                  "P90AE": "P90AE_cycles"}
     records = []
-    for group, group_values in averaged.groupby("group"):
-        pivot = group_values.pivot(index="unit", columns="model", values="RMSE_cycles")
-        if "gru_d2pred_v2" not in pivot:
-            continue
-        for model in pivot.columns:
-            if model == "gru_d2pred_v2":
+    averaged = unit.groupby(["model", "group", "unit"], as_index=False)[
+        list(metric_map.values())].mean()
+    for group in sorted(averaged.group.unique()):
+        group_values = averaged[averaged.group.eq(group)]
+        for metric, column in metric_map.items():
+            pivot = group_values.pivot(index="unit", columns="model", values=column)
+            if reference not in pivot:
                 continue
-            pair = pivot[["gru_d2pred_v2", model]].dropna()
-            difference = pair[model] - pair["gru_d2pred_v2"]
-            try:
-                statistic, p_value = wilcoxon(difference)
-            except ValueError:
-                statistic, p_value = 0.0, 1.0
-            records.append({
-                "group": group, "reference": "gru_d2pred_v2", "comparison": model,
-                "num_paired_devices": len(pair),
-                "mean_RMSE_difference_comparison_minus_main": float(difference.mean()),
-                "wilcoxon_statistic": float(statistic), "p_value": float(p_value),
-                "paired_cohen_dz": float(difference.mean() / difference.std(ddof=1))
-                if len(difference) > 1 and difference.std(ddof=1) > 0 else 0.0,
-            })
-    result = pd.DataFrame(records)
-    if len(result):
-        result["holm_threshold_rank"] = result.p_value.rank(method="first").astype(int)
-        result["holm_significant_0.05"] = (
-            result.p_value <= 0.05 / (len(result) - result.holm_threshold_rank + 1)
-        )
-    return result
+            comparisons = [m for m in pivot.columns if m != reference]
+            family = []
+            for model in comparisons:
+                pair = pivot[[reference, model]].dropna()
+                difference = pair[model] - pair[reference]
+                try:
+                    statistic, p_value = wilcoxon(difference, alternative="two-sided")
+                except ValueError:
+                    statistic, p_value = 0.0, 1.0
+                family.append({
+                    "group": group, "metric": metric, "reference": reference,
+                    "comparison": model, "num_paired_devices": len(pair),
+                    "mean_difference_comparison_minus_reference": float(difference.mean()),
+                    "wilcoxon_statistic": float(statistic),
+                    "p_value_two_sided": float(p_value),
+                })
+            order = sorted(range(len(family)), key=lambda i: family[i]["p_value_two_sided"])
+            m = len(family)
+            adjusted = [1.0] * m
+            running = 0.0
+            for rank, idx in enumerate(order):
+                value = min(1.0, (m - rank) * family[idx]["p_value_two_sided"])
+                running = max(running, value)
+                adjusted[idx] = running
+            for item, holm in zip(family, adjusted):
+                item["holm_p_value"] = float(holm)
+                item["holm_significant_0.05"] = bool(holm < 0.05)
+                records.append(item)
+    return pd.DataFrame(records)
 
 
 def reliability(validation: pd.DataFrame, test: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -839,7 +792,6 @@ def checksum_manifest(out: Path) -> None:
 
 
 def main() -> None:
-    global HEALTHY_METHOD, HEALTHY_PARAMS, REGIME_MODE, REGIME_ALPHA, WIENER_MODE
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--profile", choices=("core", "full"), default="core")
@@ -858,56 +810,21 @@ def main() -> None:
     parser.add_argument("--merge-units-to-accom", default="", help="Comma-separated AC units whose group is reassigned to ACCom.")
     parser.add_argument("--mix-groups", action="store_true", help="Treat all retained AC devices as one ACAll group.")
     parser.add_argument("--only-group", choices=("ACSim", "ACCom"), default=None,
-                        help="Run an independently trained single-group AC experiment.")
-    parser.add_argument("--aep-gamma", type=float, default=2.5)
-    parser.add_argument("--aep-min-size", type=int, default=8)
-    parser.add_argument("--aep-max-points", type=int, default=15)
-    parser.add_argument("--aep-max-tokens", type=int, default=16)
-    parser.add_argument("--prefix-start-cycle", type=int, default=30)
-    parser.add_argument("--prefix-stride", type=int, default=20)
-    parser.add_argument("--maximum-prefixes", type=int, default=20)
-    parser.add_argument("--healthy-k-min", type=int, default=None)
-    parser.add_argument("--healthy-gamma-r", type=float, default=None)
-    parser.add_argument("--healthy-consecutive-q", type=int, default=None)
-    parser.add_argument("--healthy-method", choices=("current", "increment_rate"), default="current")
-    parser.add_argument("--wiener-mode", choices=("standard", "reliability_weighted", "online_local_drift", "piecewise_linear"), default="standard")
-    parser.add_argument("--wiener-local-window", type=int, default=12)
-    parser.add_argument("--healthy-initial-window", type=int, default=20)
-    parser.add_argument("--healthy-rate-mad-multiplier", type=float, default=3.0)
-    parser.add_argument("--healthy-min-rate-sign-consistency", type=float, default=0.8)
-    parser.add_argument("--regime-mode", choices=("fixed", "fixed_grouped", "prefix_gated", "shared_specific"), default="fixed",
-                        help="Isolated A/B/C ACAll decomposition mode.")
-    parser.add_argument("--regime-alpha", type=float, default=0.5,
-                        help="Specific-branch weight for shared_specific mode.")
-    parser.add_argument("--shared-decomposition", action="store_true",
-                        help="Use one group-blind ACAll fusion while retaining ACCom/ACSim reporting labels.")
+                        help="Restrict the run to one registered AC group while retaining its predefined device folds.")
     parser.add_argument("--group-manifest", type=Path, default=None,
                         help="Alternative unit/group manifest; defaults to the historical behavior manifest.")
     parser.add_argument("--folds-file", type=Path, default=None,
                         help="Reviewer-approved predefined nested device folds; validated before fitting.")
     parser.add_argument("--keep-all-units", action="store_true",
                         help="Do not apply the historical exclusion list (needed for the fixed-rule 38-unit run).")
+    parser.add_argument("--aep-sensitivity", type=float, default=2.5)
+    parser.add_argument("--aep-min-size", type=int, default=8)
+    parser.add_argument("--aep-max-points", type=int, default=15)
+    parser.add_argument("--aep-max-tokens", type=int, default=16)
+    parser.add_argument("--prefix-start", type=int, default=30)
+    parser.add_argument("--prefix-stride", type=int, default=20)
+    parser.add_argument("--max-prefixes", type=int, default=20)
     args = parser.parse_args()
-    SENSITIVITY.update({"gamma": args.aep_gamma, "min_size": args.aep_min_size,
-                        "max_points": args.aep_max_points, "max_tokens": args.aep_max_tokens,
-                        "prefix_start": args.prefix_start_cycle, "prefix_stride": args.prefix_stride,
-                        "max_prefixes": args.maximum_prefixes})
-    if args.healthy_k_min is not None:
-        HEALTHY_OVERRIDE["k_min"] = args.healthy_k_min
-    if args.healthy_gamma_r is not None:
-        HEALTHY_OVERRIDE["gamma_r"] = args.healthy_gamma_r
-    if args.healthy_consecutive_q is not None:
-        HEALTHY_OVERRIDE["consecutive_q"] = args.healthy_consecutive_q
-    HEALTHY_METHOD = args.healthy_method
-    WIENER_MODE = args.wiener_mode
-    if WIENER_MODE == "online_local_drift":
-        HEALTHY_PARAMS["local_window"] = args.wiener_local_window
-    REGIME_MODE = args.regime_mode
-    REGIME_ALPHA = args.regime_alpha
-    HEALTHY_PARAMS.update({"initial_window": args.healthy_initial_window,
-                           "rate_mad_multiplier": args.healthy_rate_mad_multiplier,
-                           "consecutive_violations": args.healthy_consecutive_q or 2,
-                           "minimum_rate_sign_consistency": args.healthy_min_rate_sign_consistency})
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=True)
     device = torch.device(args.device)
@@ -920,6 +837,8 @@ def main() -> None:
             parser.error(f"Models are not available in profile {args.profile}: {unknown}")
     else:
         models = profile_models
+    if any(name.startswith(("ablation_", "controlled_ablation_")) for name in models):
+        parser.error("Ablation aliases are disabled pending historical implementation review.")
     drop_units = {int(v) for v in args.drop_units.split(",") if v.strip()}
     merge_units = {int(v) for v in args.merge_units_to_accom.split(",") if v.strip()}
     group_manifest = args.group_manifest
@@ -928,15 +847,25 @@ def main() -> None:
     frame = load_ac(drop_units=drop_units, merge_units_to_accom=merge_units,
                     group_manifest=group_manifest,
                     keep_standard_exclusions=not args.keep_all_units)
-    if args.only_group is not None:
-        frame = frame[frame.group.eq(args.only_group)].copy()
     if args.mix_groups:
         frame["group"] = "ACAll"
     folds_file = args.folds_file
     if folds_file is not None and not folds_file.is_absolute():
         folds_file = ROOT / folds_file
     if folds_file is not None:
-        folds = validate_predefined_folds(frame, json.loads(folds_file.read_text(encoding="utf-8")))
+        folds = json.loads(folds_file.read_text(encoding="utf-8"))
+        if args.only_group:
+            selected = set(frame.loc[frame.group.eq(args.only_group), "unit"].astype(int))
+            frame = frame[frame.unit.isin(selected)].copy()
+            filtered = []
+            for fold in folds:
+                item = {"outer_fold": fold["outer_fold"]}
+                for role in ("train", "validation", "test"):
+                    item[f"{role}_units"] = sorted(set(fold[f"{role}_units"]) & selected)
+                filtered.append(item)
+            folds = validate_predefined_folds(frame, filtered)
+        else:
+            folds = validate_predefined_folds(frame, folds)
         if len(folds) != args.outer_folds:
             parser.error("--outer-folds must match the number of predefined folds")
     else:
@@ -948,7 +877,6 @@ def main() -> None:
                                  "final_result": False},
         "retained_units": sorted(frame.unit.unique().tolist()),
         "scenario": {"drop_units": sorted(drop_units), "merge_units_to_accom": sorted(merge_units),
-                     "only_group": args.only_group,
                      "group_manifest": str(group_manifest) if group_manifest else None,
                      "predefined_folds": str(folds_file) if folds_file else None,
                      "historical_standard_exclusions_applied": not args.keep_all_units},
@@ -959,16 +887,16 @@ def main() -> None:
         "target": "RUL cycles divided by train-only maximum initial RUL plus one",
         "test_device_lifetime_used_for_target_or_inverse_transform": False,
         "decomposition": "prefix-causal fold-fitted stage-aware Wiener/STL/AE fusion",
-        "shared_group_blind_decomposition": args.shared_decomposition,
-        "aep": {"sensitivity": SENSITIVITY["gamma"], "minimum_segment_length": SENSITIVITY["min_size"],
-                "maximum_change_points": SENSITIVITY["max_points"], "maximum_tokens": SENSITIVITY["max_tokens"],
-                     "descriptor_dimension": 12, "sensitivity_override": dict(SENSITIVITY)},
-        "healthy_stage_override": dict(HEALTHY_OVERRIDE),
-        "healthy_stage_method": HEALTHY_METHOD,
-        "wiener_mode": WIENER_MODE,
-        "healthy_stage_method_params": dict(HEALTHY_PARAMS),
-        "regime_mode": REGIME_MODE,
-        "regime_alpha": REGIME_ALPHA,
+        "shared_group_blind_decomposition": False,
+        "decomposition_protocol": "ACSim and ACCom use independent DWC/EDC fits; ACAll uses its own pooled ACAll DWC/EDC fit. No cross-condition decomposition is shared.",
+        "aep": {"sensitivity": args.aep_sensitivity,
+                "minimum_segment_length": args.aep_min_size,
+                "maximum_change_points": args.aep_max_points,
+                "maximum_tokens": args.aep_max_tokens,
+                "descriptor_dimension": 12},
+        "prefix_generation": {"start": args.prefix_start,
+                              "stride": args.prefix_stride,
+                              "maximum_prefixes": args.max_prefixes},
         "training": {"optimizer": "Adam", "learning_rate": 1e-3,
                      "batch_size": args.batch_size, "maximum_epochs": args.epochs,
                      "early_stopping_patience": 8, "fusion_epochs": args.fusion_epochs},
@@ -981,7 +909,14 @@ def main() -> None:
     for fold in folds:
         print(f"[fold {fold['outer_fold']}] fitting causal decomposition", flush=True)
         rows = build_fold_rows(frame, fold, out, device, args.fusion_epochs,
-                               args.mix_groups, args.shared_decomposition)
+                               args.mix_groups,
+                               {"sensitivity": args.aep_sensitivity,
+                                "min_size": args.aep_min_size,
+                                "max_points": args.aep_max_points,
+                                "max_tokens": args.aep_max_tokens},
+                               {"start": args.prefix_start,
+                                "stride": args.prefix_stride,
+                                "maximum": args.max_prefixes})
         if max(row["edc_identity_error"] for row in rows) > 1e-6:
             raise AssertionError("EDC != DI-DWC")
         for seed in seeds:
@@ -990,11 +925,6 @@ def main() -> None:
                 validation, test, metadata = train_one(
                     rows, name, fold["outer_fold"], seed, out, device,
                     args.epochs, args.batch_size,
-                    fusion_checkpoint_path=(
-                        out / "fusion" / f"outer_fold_{fold['outer_fold']}" /
-                        (args.only_group if args.only_group is not None else "ACAll") /
-                        "fusion_checkpoint.pt"
-                    ),
                 )
                 all_validation.extend(validation)
                 all_test.extend(test)

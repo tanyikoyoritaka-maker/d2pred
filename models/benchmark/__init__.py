@@ -15,12 +15,6 @@ class CNN(Regressor):
     def forward(self,x): return self.predict(self.net(x.unsqueeze(1)).squeeze(-1))
 
 
-class RNNModel(Regressor):
-    def __init__(self,bidirectional=False):
-        super().__init__(); self.rnn=nn.LSTM(1,64,2,batch_first=True,bidirectional=bidirectional,dropout=.1); self.head=nn.Linear(64*(2 if bidirectional else 1),1)
-    def forward(self,x): y,_=self.rnn(x.unsqueeze(-1)); return self.predict(y[:,-1])
-
-
 class SinusoidalPositionEncoding(nn.Module):
     def __init__(self, dimension=64, maximum_length=2048):
         super().__init__()
@@ -174,14 +168,6 @@ class SparseBranch(nn.Module):
     def forward(self,x): y,_=self.attn(x,x,x,attn_mask=sparse_mask(x.size(1),self.mode,x.device)); return self.norm(x+y)
 
 
-class IMDSSN(Regressor):
-    """Deterministically masked ProbSparse/LogSparse dual-branch surrogate."""
-    def __init__(self):
-        super().__init__(); self.embed=nn.Linear(1,64); self.prob=SparseBranch("prob"); self.log=SparseBranch("log"); self.fuse=nn.Sequential(nn.Linear(128,64),nn.ReLU()); self.head=nn.Linear(64,1)
-    def forward(self,x):
-        z=self.embed(x.unsqueeze(-1)); return self.predict(self.fuse(torch.cat([self.prob(z).mean(1),self.log(z).mean(1)],-1)))
-
-
 class PM2FN(Regressor):
     def __init__(self):
         super().__init__(); self.local=nn.Sequential(nn.Conv1d(1,32,3,padding=1),nn.ReLU(),nn.Conv1d(32,64,3,padding=1),nn.ReLU(),nn.AdaptiveAvgPool1d(1)); self.global_branch=nn.Sequential(nn.Conv1d(1,32,9,padding=8,dilation=2),nn.ReLU(),nn.Conv1d(32,64,5,padding=8,dilation=4),nn.ReLU(),nn.AdaptiveAvgPool1d(1)); self.fuse=nn.Sequential(nn.Linear(128,64),nn.ReLU(),nn.Dropout(.1)); self.head=nn.Linear(64,1)
@@ -218,6 +204,6 @@ class KGHM(Regressor):
 
 
 def build_model(name):
-    table={"CNN":CNN,"LSTM":lambda:RNNModel(False),"BiLSTM":lambda:RNNModel(True),"DAG_network":DAGNetwork,"IMDSSN":IMDSSN,"PM2FN":PM2FN,"Transformer":TransformerModel,"TCN_BiGRU":TCNBiGRU,"KGHM":KGHM,"ATCN":ATCN,"MDFA":MDFA,"SBi_Transformer":SBiTransformer,"Attn_ResDSCNN":AttnResDSCNN}
+    table={"CNN":CNN,"DAG_network":DAGNetwork,"PM2FN":PM2FN,"Transformer":TransformerModel,"TCN_BiGRU":TCNBiGRU,"KGHM":KGHM,"ATCN":ATCN,"MDFA":MDFA,"SBi_Transformer":SBiTransformer,"Attn_ResDSCNN":AttnResDSCNN}
     if name not in table: raise KeyError("No runnable implementation for %s"%name)
     return table[name]()

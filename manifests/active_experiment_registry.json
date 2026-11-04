@@ -1,0 +1,41 @@
+{
+  "registry_id": "active_experiment_registry_20261102",
+  "comparison": {
+    "status": "verified_complete",
+    "path": "results/frozen_protocol_final/comparison"
+  },
+  "ablation": {
+    "status": "DRAFT_UNAPPROVED",
+    "protocol": "ablation_final/protocol/ablation_manifest_v2.json",
+    "candidate": "ablation_final/protocol/ablation_manifest_v2.json",
+    "execution_enabled": false,
+    "published_results": null,
+    "previous_results": "../d2pred_rubbish/ablation_protocol_replacement_20261102/d2pred_final/results/frozen_protocol_final/ablation",
+    "previous_interpretation": "historical architecture comparisons; not controlled single-module ablations",
+    "completed_datasets": [],
+    "historical_datasets_with_recomputed_metrics": [
+      "ACSim",
+      "ACCom",
+      "ACAll"
+    ],
+    "rejected_archive": "../d2pred_rubbish/ablation_rejected_20261103/d2pred_final",
+    "approval_protocol": "../d2pred_rubbish/ablation_rejected_20261103/d2pred_final/manifests/ablation_protocol_review_20261103.md",
+    "reason": "Historical audit found architecture-routing and ablation-definition mismatches. v3 evidence is retained in ../d2pred_rubbish/ablation_contamination_cleanup_20261103/evidence/d2pred_final and is not an active result source. The v2 candidate is generated from the current code but remains disabled pending review and runtime validation.",
+    "review_report": "ablation_final/reports/historical_ablation_recovery_report.md",
+    "approval_required_before_protocol_generation": true
+  },
+  "sensitivity": {
+    "status": "verified_complete",
+    "path": "results/frozen_protocol_final/sensitivity"
+  },
+  "public": {
+    "status": "verified_complete",
+    "path": "results/public_benchmark_final"
+  },
+  "computational": {
+    "status": "retained_supplement",
+    "path": "results/peak_memory_supplement"
+  },
+  "archive_map": "../d2pred_rubbish/ablation_protocol_replacement_20261102/migration_manifest.csv",
+  "updated": "2026-11-03T07:03:04.151131+00:00"
+}

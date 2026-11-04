@@ -30,6 +30,7 @@ from analysis.theory_aligned_decomposition import (
     stage_aware_fusion_loss,
     smooth_stl_candidate,
     wiener_reliability,
+    single_source_candidates,
 )
 
 
@@ -68,6 +69,11 @@ def fusion_item(
     stable: StableStageConfig,
     fusion_config: StageAwareFusionConfig = FUSION,
 ) -> dict:
+    if fusion_config.candidate_source != "both":
+        return {"trends": single_source_candidates(di, stable, DECOMPOSITION,
+                                                  fusion_config.candidate_source),
+                "di": np.asarray(di, dtype=np.float32),
+                "stable_fraction": np.float32(0), "reliability": np.float32(1)}
     wiener, metadata = stable_stage_wiener_expected_trend(
         di, stable, DECOMPOSITION
     )

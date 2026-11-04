@@ -32,6 +32,8 @@ from analysis.causal_decomposition import (
 
 @dataclass(frozen=True)
 class StageAwareFusionConfig:
+    candidate_source: str = "both"
+    use_autoencoder_correction: bool = True
     transition_temperature: float = 0.08
     minimum_transition_fraction: float = 0.0
     stl_post_smoothing_fraction: float = 0.0
@@ -118,6 +120,13 @@ class StageAwareTrendAutoencoder(nn.Module):
         batch, _, width = trends.shape
         if mask.shape != (batch, width):
             raise ValueError("mask must have shape [batch, length]")
+        if self.config.candidate_source not in {"both", "wiener", "stl"}:
+            raise ValueError("Invalid candidate source")
+        if self.config.candidate_source != "both":
+            index = 0 if self.config.candidate_source == "wiener" else 1
+            trends = trends[:, index:index + 1].expand(-1, 2, -1)
+            stable_fraction = torch.zeros_like(stable_fraction)
+            reliability = torch.ones_like(reliability)
         lengths = mask.sum(1).clamp_min(1).to(trends.dtype)
         positions = torch.arange(width, device=trends.device, dtype=trends.dtype)[None]
         normalized_time = positions / (lengths[:, None] - 1.0).clamp_min(1.0)
@@ -142,7 +151,8 @@ class StageAwareTrendAutoencoder(nn.Module):
                 self.config.epsilon
             )
         )[:, None]
-        raw_correction = self.residual_autoencoder(trends, mask)
+        raw_correction = (self.residual_autoencoder(trends, mask)
+                          if self.config.use_autoencoder_correction else torch.zeros_like(base))
         correction = (
             self.config.residual_fraction * disagreement * torch.tanh(raw_correction)
         ) * float_mask
@@ -176,6 +186,17 @@ class StageAwareTrendAutoencoder(nn.Module):
             "gate_prior": "reliable_Wiener_during_detected_healthy_stage_then_STL",
             **self.config.__dict__,
         }
+
+
+def single_source_candidates(di, stable, decomposition, source):
+    """Construct only the surviving source; diagnostics carry no removed source."""
+    if source == "wiener":
+        candidate, _ = stable_stage_wiener_expected_trend(di, stable, decomposition)
+    elif source == "stl":
+        candidate, _ = rolling_stl_trend(di, decomposition)
+    else:
+        raise ValueError(source)
+    return np.stack((candidate, candidate)).astype(np.float32)
 
 
 class StlResidualTrendAutoencoder(nn.Module):

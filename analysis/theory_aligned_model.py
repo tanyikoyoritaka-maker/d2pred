@@ -22,6 +22,25 @@ class SinusoidalPositionEncoding(nn.Module):
         self.register_buffer("encoding", encoding, persistent=False)
 
     def forward(self, values: torch.Tensor) -> torch.Tensor:
+        if values.shape[1] > self.encoding.shape[0]:
+            # Sensitivity runs may intentionally test a larger token budget
+            # than the default architecture.  Extend the deterministic
+            # sinusoidal table without changing learned parameters.
+            maximum_length = int(values.shape[1])
+            position = torch.arange(maximum_length, dtype=torch.float32,
+                                    device=self.encoding.device)[:, None]
+            dimension = self.encoding.shape[1]
+            divisor = torch.exp(
+                torch.arange(0, dimension, 2, dtype=torch.float32,
+                             device=self.encoding.device)
+                * (-math.log(10000.0) / dimension)
+            )
+            encoding = torch.zeros(maximum_length, dimension,
+                                   device=self.encoding.device)
+            encoding[:, 0::2] = torch.sin(position * divisor)
+            encoding[:, 1::2] = torch.cos(
+                position * divisor[: encoding[:, 1::2].shape[1]])
+            self.encoding = encoding
         return values + self.encoding[: values.shape[1]][None].to(values.dtype)
 
 

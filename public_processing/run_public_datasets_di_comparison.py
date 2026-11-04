@@ -25,7 +25,7 @@ from analysis.causal_decomposition import MissingHealthStateError
 OUT=ROOT/'new_expriments/public_datasets_di_comparison'
 DIR={n:OUT/n for n in ['scripts','protocols','diagnostics','di_cache','dwc_edc_cache','comparison_results','combined_tables','logs','checkpoints']}
 DATASETS=['xjtu_sy','pronostia','ims','nasa_battery']
-MODELS=['CNN','LSTM','BiLSTM','DAG_network','IMDSSN','PM2FN','Transformer','TCN_BiGRU','KGHM','ATCN','MDFA','SBi_Transformer','Attn_ResDSCNN','cpm_stats_tokens_edc_independent_fusion']
+MODELS=['CNN','DAG_network','PM2FN','Transformer','TCN_BiGRU','KGHM','ATCN','MDFA','SBi_Transformer','Attn_ResDSCNN','cpm_stats_tokens_edc_independent_fusion']
 SEED=42; TOPK=14
 PATHS={'xjtu_sy':ROOT/'XJTU-SY_Bearing_Datasets','pronostia':ROOT/'PHM_IEEE_2012/phm-ieee-2012-data-challenge-dataset-master','ims':ROOT/'IMSDataset/IMS','nasa_battery':ROOT/'BatteryDataSet/DataSet/BatteryAgingARC_unzipped'}
 
@@ -217,7 +217,7 @@ def metrics(pred):
 
 def run_models(kind,cache,args,summary,units,preds,missing):
     rows,win=rows_from_cache(cache,args.smoke_test)
-    if args.smoke_test: models=['LSTM','cpm_stats_tokens_edc_independent_fusion']
+    if args.smoke_test: models=['CNN','cpm_stats_tokens_edc_independent_fusion']
     else: models=args.models or MODELS
     for model in models:
         try:
@@ -268,6 +268,6 @@ def main():
     for kind,c in caches.items(): run_models(kind,c,args,summary,units,preds,missing)
     outputs(summary,units,preds,missing,metas,args.smoke_test)
     elapsed=time.time()-start; jwrite(DIR['logs']/('smoke_test_runtime.json' if args.smoke_test else 'full_run_runtime.json'),{'seconds':elapsed,'passed':bool(summary),'datasets':list(caches),'models':sorted({x['model'] for x in summary})})
-    if args.smoke_test and not {'LSTM','cpm_stats_tokens_edc_independent_fusion'}.issubset({x['model'] for x in summary}): raise RuntimeError('Smoke test did not pass both required models')
+    if args.smoke_test and not {'CNN','cpm_stats_tokens_edc_independent_fusion'}.issubset({x['model'] for x in summary}): raise RuntimeError('Smoke test did not pass both required models')
     print(f'[DONE] mode={"smoke" if args.smoke_test else "full"} runtime_seconds={elapsed:.1f} output={OUT}',flush=True)
 if __name__=='__main__': main()
