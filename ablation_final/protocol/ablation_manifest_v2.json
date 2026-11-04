@@ -7,14 +7,14 @@
   "full_policy": "Reuse the frozen main-comparison ExpertExactD2Pred predictions; no Full training, inference, checkpoint, or split changes.",
   "data": {
     "dataset_id": "industrial_ac_di_v1",
-    "path": "/home/mao/D2Pred/d2pred_final/data/industrial/DI_df.csv",
+    "path": "data/industrial/DI_df.csv",
     "sha256": "cc32bbd6e0f3cb7f2e30422dacb821fb13eb2b2bb0b13956cf138a1651d1dd82",
     "group_manifest": {
-      "path": "/home/mao/D2Pred/d2pred_final/manifests/group_manifest.csv",
+      "path": "manifests/group_manifest.csv",
       "sha256": "c6c38fdbd97b96c520d5f58e75e7ae16b8ff08dc10705f9cad185f7a40ee1d6d"
     },
     "failure_endpoint_manifest": {
-      "path": "/home/mao/D2Pred/d2pred_final/manifests/failure_endpoint_manifest.csv",
+      "path": "manifests/failure_endpoint_manifest.csv",
       "sha256": "c4860cd76f16aa68e289295a5fd7439ad38581b813e2eddc72165d17e5620075"
     },
     "datasets": [
@@ -29,7 +29,7 @@
     },
     "fold_manifests": {
       "ACSim": {
-        "path": "/home/mao/D2Pred/d2pred_final/results/frozen_protocol_final/comparison/ACSim/folds.json",
+        "path": "results/frozen_protocol_final/comparison/ACSim/folds.json",
         "sha256": "707e7d3637c5b51fe4f209d9e621b7fd3f4b17d96a217e7a8355c52bc9c6d83b",
         "outer_folds": 3,
         "test_units": [
@@ -53,7 +53,7 @@
         ]
       },
       "ACCom": {
-        "path": "/home/mao/D2Pred/d2pred_final/results/frozen_protocol_final/comparison/ACCom/folds.json",
+        "path": "results/frozen_protocol_final/comparison/ACCom/folds.json",
         "sha256": "c11adc7e5bd078311180e144b4dac8dcf9dd12a3066c801b74196348ef4f6eb2",
         "outer_folds": 3,
         "test_units": [
@@ -76,7 +76,7 @@
         ]
       },
       "ACAll": {
-        "path": "/home/mao/D2Pred/d2pred_final/results/frozen_protocol_final/comparison/ACAll/folds.json",
+        "path": "results/frozen_protocol_final/comparison/ACAll/folds.json",
         "sha256": "bccef56bf412558cbd5fed954579e008023bb6b6e1f3d1293e1ccfe560b18be4",
         "outer_folds": 3,
         "test_units": [
@@ -185,7 +185,7 @@
     "trend_pretraining": "Reuse the matching frozen Full fold checkpoint except no_wiener/no_stl, which fit a source-isolated train/validation fusion model; no_autoencoder_fusion uses no learned trend checkpoint; no_decomposition has no trend pretraining.",
     "initialization": "ExpertExact predictor parameters use the specified run seed; no RUL-trained Full checkpoint is loaded. Retained fold trend-fusion checkpoint is loaded from the comparison package.",
     "loss": "Normalized RUL MSE + 0.1 gradual auxiliary MSE when retained + 0.1 event auxiliary MSE when retained + 0.1 trend-fusion objective when retained.",
-    "output_root": "/home/mao/D2Pred/d2pred_final/ablation_final/outputs/strict_ablation_v2"
+    "output_root": "ablation_final/outputs/strict_ablation_v2"
   },
   "evaluation": {
     "metrics": [

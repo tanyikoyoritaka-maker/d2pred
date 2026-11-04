@@ -1,0 +1,10 @@
+{
+  "dataset_id": "industrial_ac_di_v1",
+  "path": "data/industrial/DI_df.csv",
+  "format": "CSV",
+  "availability": "private; excluded from Git",
+  "bytes": 7748951,
+  "sha256": "cc32bbd6e0f3cb7f2e30422dacb821fb13eb2b2bb0b13956cf138a1651d1dd82",
+  "original_execution_manifest_sha256": "32cc6a046674c9581c021744d9aab93a081cc622d14ed308cbcf93a481b4b1fc",
+  "restore_instructions": "Restore the approved source file at this relative path from the private archive, then verify its SHA-256 before running any experiment."
+}

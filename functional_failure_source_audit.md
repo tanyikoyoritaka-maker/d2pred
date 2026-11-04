@@ -2,7 +2,7 @@
 
 ## First source checked
 
-Source: `/home/mao/D2Pred/良信验收报告.docx`, 产品电气寿命预测研究总结报告.
+Source: a private industrial acceptance report retained in the server archive.
 
 The report does contain a usable operational definition, although it does not use
 the English phrase “functional failure”. It states that the project studies the
@@ -36,8 +36,7 @@ failure forms; these fields must be matched to the anonymised unit inventory.
 
 ## Chinese final-paper cross-check
 
-The relevant file was found at
-`/home/mao/D2Pred/PythonProject2/chinese_paper.pdf` (SHA-256
+The relevant Chinese thesis is retained in the server archive (SHA-256
 `23ccabf4642d0d750c24ad469f189af8cee6a375ec905c67faada5c06ff7fed1`).
 It is the AC-contactor RUL thesis, not the unrelated Sun Lele anomaly-detection
 thesis. Section 6.2.2 reports 183 monitored contactors, of which 33 have complete
@@ -69,7 +68,7 @@ label at cycle `t` is `RUL_u(t) = T_u - t`. No DI threshold is involved.
 
 ## Raw archive status
 
-`/home/mao/D2Pred/raw.rar` exists (about 6.5 GB; SHA-256
+The inspected raw archive (about 6.5 GB; SHA-256
 `735748afcd9dede1c633450d9036a2089e097a35fe4f670693cb12f2f214f2be`). A
 read-only archive inventory was obtained with `bsdtar`: 12,403 entries belonging
 to unrelated benchmark collections (BDC, CWRU, HAR, KNPHM, NEU, PenDigits,

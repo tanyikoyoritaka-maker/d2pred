@@ -1,41 +1,103 @@
 {
-  "registry_id": "active_experiment_registry_20261102",
+  "registry_id": "active_experiment_registry_20261104",
+  "updated": "2026-11-04",
   "comparison": {
-    "status": "verified_complete",
-    "path": "results/frozen_protocol_final/comparison"
-  },
-  "ablation": {
-    "status": "DRAFT_UNAPPROVED",
-    "protocol": "ablation_final/protocol/ablation_manifest_v2.json",
-    "candidate": "ablation_final/protocol/ablation_manifest_v2.json",
-    "execution_enabled": false,
-    "published_results": null,
-    "previous_results": "../d2pred_rubbish/ablation_protocol_replacement_20261102/d2pred_final/results/frozen_protocol_final/ablation",
-    "previous_interpretation": "historical architecture comparisons; not controlled single-module ablations",
-    "completed_datasets": [],
-    "historical_datasets_with_recomputed_metrics": [
-      "ACSim",
-      "ACCom",
-      "ACAll"
-    ],
-    "rejected_archive": "../d2pred_rubbish/ablation_rejected_20261103/d2pred_final",
-    "approval_protocol": "../d2pred_rubbish/ablation_rejected_20261103/d2pred_final/manifests/ablation_protocol_review_20261103.md",
-    "reason": "Historical audit found architecture-routing and ablation-definition mismatches. v3 evidence is retained in ../d2pred_rubbish/ablation_contamination_cleanup_20261103/evidence/d2pred_final and is not an active result source. The v2 candidate is generated from the current code but remains disabled pending review and runtime validation.",
-    "review_report": "ablation_final/reports/historical_ablation_recovery_report.md",
-    "approval_required_before_protocol_generation": true
+    "name": "Comparison Experiments",
+    "status": "COMPLETED_AND_VERIFIED",
+    "path": "results/frozen_protocol_final/comparison",
+    "datasets": ["ACSim", "ACCom", "ACAll"],
+    "entrypoint": "run_ac_nested_gru_rerun.py",
+    "result_files": "results/frozen_protocol_final/comparison/{dataset}/summary_metrics.csv",
+    "predictions": "results/frozen_protocol_final/comparison/{dataset}/test_predictions.csv",
+    "checkpoints": "results/frozen_protocol_final/comparison/{dataset}/runs/ and fusion/",
+    "config": "results/frozen_protocol_final/comparison/{dataset}/protocol.json",
+    "folds": "manifests/folds.json and results/frozen_protocol_final/comparison/{dataset}/folds.json",
+    "verification": "Per-dataset run_status.json, checksum_manifest.csv, and frozen prediction package.",
+    "run_status": {
+      "ACSim": "verified_complete; 11154 test predictions",
+      "ACCom": "verified_complete; 10560 test predictions",
+      "ACAll": "verified_complete; 21714 test predictions"
+    },
+    "source_revision_binding": "Execution records contain commands and artifact checksums but do not bind an execution-time Git revision or source-code fingerprint."
   },
   "sensitivity": {
-    "status": "verified_complete",
-    "path": "results/frozen_protocol_final/sensitivity"
+    "name": "Sensitivity Experiments",
+    "status": "COMPLETED_AND_VERIFIED",
+    "path": "results/frozen_protocol_final/sensitivity",
+    "datasets": ["ACSim", "ACCom", "ACAll"],
+    "entrypoint": "scripts/run_sensitivity_independent_final.py",
+    "base_runner": "run_ac_nested_gru_rerun.py",
+    "summary": "results/frozen_protocol_final/sensitivity/sensitivity_summary_all_metrics.csv",
+    "dataset_summaries": "results/frozen_protocol_final/sensitivity/sensitivity_{dataset}.csv",
+    "execution_manifest": "results/frozen_protocol_final/sensitivity/execution_manifest.json",
+    "registered_nondefault_runs": 57,
+    "summary_rows": 78,
+    "parameters": {
+      "gamma": {"values": [1.5, 2.0, 2.5, 3.0, 3.5], "default": 2.5},
+      "min_size": {"values": [4, 8, 12, 16], "default": 8},
+      "max_points": {"values": [8, 15, 24], "default": 15},
+      "max_tokens": {"values": [8, 12, 16, 24, 32], "default": 16},
+      "prefix_start": {"values": [10, 30, 50], "default": 30},
+      "prefix_stride": {"values": [10, 20, 40], "default": 20},
+      "max_prefixes": {"values": [10, 20, 40], "default": 20}
+    },
+    "folds": 3,
+    "seeds": [17, 42, 73],
+    "verification": "execution_manifest.json reports verified_complete; aggregate checksum manifest and per-case status/checksum records are present.",
+    "source_revision_binding": "Execution records do not bind an execution-time Git revision or source-code fingerprint.",
+    "plot_source_status": "figures/plot_registered_sensitivity.py reads the registered dataset summary CSVs and accepts an explicit output path."
   },
-  "public": {
-    "status": "verified_complete",
-    "path": "results/public_benchmark_final"
+  "ablation": {
+    "name": "Ablation Experiments",
+    "status": "COMPLETED_AND_VERIFIED",
+    "official_result": "ablation_final/metrics_summary.csv",
+    "official_result_sha256": "52fff4dfeae742cbfd79140f7a0cfa5e3fa0d47bb01745c15f7f5fbddc2f56a1",
+    "official_result_bytes": 4972,
+    "evaluation_output": "ablation_final/outputs/strict_ablation_v2/evaluation/metrics_summary.csv",
+    "evaluation_manifest": "ablation_final/outputs/strict_ablation_v2/evaluation/metrics_manifest.json",
+    "prediction_inputs_manifest": "ablation_final/outputs/strict_ablation_v2/evaluation/prediction_inputs_manifest.json",
+    "batch_record": "ablation_final/outputs/strict_ablation_v2/batch_run_manifest.json",
+    "batch_run_id": "strict_v2_20261103T090504Z_1de96183",
+    "batch_status": "COMPLETED_WITH_METRICS",
+    "completed_runs": 216,
+    "datasets": ["ACSim", "ACCom", "ACAll"],
+    "variants": ["no_wiener", "no_stl", "no_autoencoder_fusion", "no_dwc", "no_edc", "no_decomposition", "no_fusion", "no_aep"],
+    "full_reference": "Frozen main-comparison predictions at results/frozen_protocol_final/comparison/{dataset}/test_predictions.csv; reused without retraining.",
+    "training_entrypoint": "ablation_final/run_strict_ablation_batch.py",
+    "evaluation_entrypoint": "ablation_final/evaluate_strict_ablation.py",
+    "protocol": "ablation_final/protocol/ablation_manifest_v2.json",
+    "executed_protocol_sha256": "6ba61ffd15bdbb7233f297d297d81051f47f1c689257715dad6e6b79a3aee791",
+    "checked_in_protocol_note": "Only server-absolute filesystem prefixes were normalized to repository-relative paths; experiment settings are unchanged. The exact executed protocol hash is recorded above.",
+    "checkpoints": "ablation_final/outputs/strict_ablation_v2/{dataset}/{variant}/outer_fold_{fold}/seed_{seed}/best_checkpoint.pt",
+    "predictions": "ablation_final/outputs/strict_ablation_v2/{dataset}/{variant}/outer_fold_{fold}/seed_{seed}/test_predictions.csv",
+    "folds": "manifests/group_manifest.csv and manifests/folds.json; fold hashes are recorded in the batch record.",
+    "metrics": ["RMSE", "MAE", "P90AE"],
+    "aggregation": "Per-prefix metrics per device and seed; average seeds within device; equal-device mean.",
+    "source_revision": {
+      "base_commit": "51c696597efc5e436ad14a73b8fcd026907bd542",
+      "working_tree_diff_sha256": "19fd15b6a98b79a901c8886d18f7f8482870234af6a4bf28099c8f61c97ce952",
+      "fingerprint_verification": "All ten code fingerprints in the run record match the corresponding current source files included in commit ba18c69."
+    },
+    "verification": "The batch record contains 216 COMPLETED runs, all exit code 0 and all required artifact hashes; metrics_manifest.json records the official result SHA-256. An independent read-only check found that all Full RMSE values match frozen predictions, but Full MAE/P90AE values do not match the recorded aggregation when recalculated from those predictions.",
+    "historical_status": "Earlier approval-pending registry entries are retained in Git history. They describe pre-execution candidate status and are superseded by this run's execution/evaluation records."
   },
-  "computational": {
-    "status": "retained_supplement",
-    "path": "results/peak_memory_supplement"
+  "data": {
+    "private_source": "data/industrial/DI_df.csv",
+    "sha256": "cc32bbd6e0f3cb7f2e30422dacb821fb13eb2b2bb0b13956cf138a1651d1dd82",
+    "bytes": 7748951,
+    "source_manifest_sha256": "32cc6a046674c9581c021744d9aab93a081cc622d14ed308cbcf93a481b4b1fc",
+    "source_manifest": "manifests/data_source_manifest.json",
+    "git_status": "ignored; not published",
+    "group_manifest": "manifests/group_manifest.csv",
+    "failure_endpoint_manifest": "manifests/failure_endpoint_manifest.csv",
+    "fold_manifest": "manifests/folds.json"
   },
-  "archive_map": "../d2pred_rubbish/ablation_protocol_replacement_20261102/migration_manifest.csv",
-  "updated": "2026-11-03T07:03:04.151131+00:00"
+  "other_packages": {
+    "public": {"status": "verified_complete", "path": "results/public_benchmark_final"},
+    "computational": {"status": "retained_supplement", "path": "results/peak_memory_supplement"}
+  },
+  "historical_archives": {
+    "rejected_and_superseded": "../d2pred_rubbish/",
+    "prior_registry_snapshot": "active_experiment_registry_20261102 as preserved in Git history"
+  }
 }

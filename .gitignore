@@ -19,6 +19,8 @@ __pycache__/
 !manifests/controlled_ablation_source_checksums.csv
 !manifests/controlled_ablation_reference_checksums.csv
 !manifests/paper_checksum_manifest.csv
+!manifests/group_manifest.csv
+!manifests/failure_endpoint_manifest.csv
 
 # Keep generated strict-v2 runs out of Git; retain compact batch and evaluation evidence.
 /ablation_final/outputs/strict_ablation_v2/**
@@ -30,6 +32,40 @@ __pycache__/
 !/ablation_final/outputs/strict_ablation_v2/evaluation/metrics_manifest.json
 !/ablation_final/outputs/strict_ablation_v2/evaluation/prediction_inputs_manifest.json
 !/ablation_final/outputs/strict_ablation_v2/evaluation/superseded_v2_runner_manifest.json
+!/ablation_final/metrics_summary.csv
+
+# Track compact official summaries and their completion/checksum records only.
+!results/
+results/*
+!results/frozen_protocol_final/
+results/frozen_protocol_final/*
+!results/frozen_protocol_final/comparison/
+results/frozen_protocol_final/comparison/*
+!results/frozen_protocol_final/comparison/ACSim/
+!results/frozen_protocol_final/comparison/ACCom/
+!results/frozen_protocol_final/comparison/ACAll/
+results/frozen_protocol_final/comparison/ACSim/*
+results/frozen_protocol_final/comparison/ACCom/*
+results/frozen_protocol_final/comparison/ACAll/*
+!results/frozen_protocol_final/comparison/ACSim/summary_metrics.csv
+!results/frozen_protocol_final/comparison/ACSim/run_status.json
+!results/frozen_protocol_final/comparison/ACSim/folds.json
+!results/frozen_protocol_final/comparison/ACSim/checksum_manifest.csv
+!results/frozen_protocol_final/comparison/ACCom/summary_metrics.csv
+!results/frozen_protocol_final/comparison/ACCom/run_status.json
+!results/frozen_protocol_final/comparison/ACCom/folds.json
+!results/frozen_protocol_final/comparison/ACCom/checksum_manifest.csv
+!results/frozen_protocol_final/comparison/ACAll/summary_metrics.csv
+!results/frozen_protocol_final/comparison/ACAll/run_status.json
+!results/frozen_protocol_final/comparison/ACAll/folds.json
+!results/frozen_protocol_final/comparison/ACAll/checksum_manifest.csv
+!results/frozen_protocol_final/sensitivity/
+results/frozen_protocol_final/sensitivity/*
+!results/frozen_protocol_final/sensitivity/execution_manifest.json
+!results/frozen_protocol_final/sensitivity/sensitivity_summary_all_metrics.csv
+!results/frozen_protocol_final/sensitivity/sensitivity_ACSim.csv
+!results/frozen_protocol_final/sensitivity/sensitivity_ACCom.csv
+!results/frozen_protocol_final/sensitivity/sensitivity_ACAll.csv
 
 # Local runtime and environment files
 .venv/

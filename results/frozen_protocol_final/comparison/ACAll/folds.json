@@ -1,0 +1,212 @@
+[
+  {
+    "outer_fold": 0,
+    "train_units": [
+      4,
+      6,
+      10,
+      12,
+      14,
+      17,
+      19,
+      20,
+      22,
+      23,
+      24,
+      26,
+      31,
+      33,
+      34,
+      36,
+      37
+    ],
+    "validation_units": [
+      5,
+      7,
+      9,
+      15,
+      16
+    ],
+    "test_units": [
+      2,
+      8,
+      13,
+      18,
+      21,
+      25,
+      27,
+      28,
+      29,
+      30,
+      32
+    ],
+    "group_counts": {
+      "train": {
+        "ACSim": 9,
+        "ACCom": 8
+      },
+      "validation": {
+        "ACCom": 3,
+        "ACSim": 2
+      },
+      "test": {
+        "ACSim": 6,
+        "ACCom": 5
+      }
+    },
+    "mean_lifetime_by_group": {
+      "train": {
+        "ACCom": 1317.0,
+        "ACSim": 579.889
+      },
+      "validation": {
+        "ACCom": 1314.0,
+        "ACSim": 581.5
+      },
+      "test": {
+        "ACCom": 1315.6,
+        "ACSim": 580.667
+      }
+    }
+  },
+  {
+    "outer_fold": 1,
+    "train_units": [
+      2,
+      4,
+      6,
+      14,
+      18,
+      21,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      36
+    ],
+    "validation_units": [
+      8,
+      9,
+      13,
+      17,
+      24
+    ],
+    "test_units": [
+      5,
+      7,
+      10,
+      12,
+      15,
+      16,
+      19,
+      20,
+      22,
+      23,
+      37
+    ],
+    "group_counts": {
+      "train": {
+        "ACCom": 9,
+        "ACSim": 8
+      },
+      "validation": {
+        "ACSim": 3,
+        "ACCom": 2
+      },
+      "test": {
+        "ACSim": 6,
+        "ACCom": 5
+      }
+    },
+    "mean_lifetime_by_group": {
+      "train": {
+        "ACCom": 1322.222,
+        "ACSim": 581.25
+      },
+      "validation": {
+        "ACCom": 1324.0,
+        "ACSim": 578.667
+      },
+      "test": {
+        "ACCom": 1301.6,
+        "ACSim": 580.0
+      }
+    }
+  },
+  {
+    "outer_fold": 2,
+    "train_units": [
+      2,
+      5,
+      7,
+      8,
+      10,
+      12,
+      13,
+      15,
+      16,
+      18,
+      19,
+      20,
+      21,
+      22,
+      30,
+      32,
+      37
+    ],
+    "validation_units": [
+      23,
+      25,
+      27,
+      28,
+      29
+    ],
+    "test_units": [
+      4,
+      6,
+      9,
+      14,
+      17,
+      24,
+      26,
+      31,
+      33,
+      34,
+      36
+    ],
+    "group_counts": {
+      "train": {
+        "ACSim": 10,
+        "ACCom": 7
+      },
+      "validation": {
+        "ACCom": 3,
+        "ACSim": 2
+      },
+      "test": {
+        "ACCom": 6,
+        "ACSim": 5
+      }
+    },
+    "mean_lifetime_by_group": {
+      "train": {
+        "ACCom": 1308.0,
+        "ACSim": 581.3
+      },
+      "validation": {
+        "ACCom": 1310.0,
+        "ACSim": 575.5
+      },
+      "test": {
+        "ACCom": 1328.333,
+        "ACSim": 580.4
+      }
+    }
+  }
+]

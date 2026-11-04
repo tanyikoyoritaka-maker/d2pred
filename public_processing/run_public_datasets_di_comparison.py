@@ -42,7 +42,7 @@ def discover():
         files=[x for x in p.rglob('*') if x.is_file()] if p.exists() else []
         size=sum(x.stat().st_size for x in files)
         ext=sorted({x.suffix.lower() or 'extensionless' for x in files})
-        rows.append({'dataset_name':name,'discovered_path':str(p) if p.exists() else '', 'file_count':len(files),'size':size,'detected_format':','.join(ext[:12]),'status':'found' if files else 'missing','notes':''})
+        rows.append({'dataset_name':name,'discovered_path':p.relative_to(ROOT).as_posix() if p.exists() else '', 'file_count':len(files),'size':size,'detected_format':','.join(ext[:12]),'status':'found' if files else 'missing','notes':''})
     jwrite(DIR['protocols']/'dataset_path_manifest.json',rows); return rows
 
 def feats(x,fs=25600.0,prefix=''):

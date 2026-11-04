@@ -1,7 +1,7 @@
 {
   "audit_status": "LOCATED_AND_REVIEWED",
   "run_date": "2026-09-16",
-  "run_directory": "/home/mao/D2Pred/PythonProject2/results/expert_rerun_approved_v1/public_paper_nested",
+  "run_directory": "external historical workspace; original absolute path redacted",
   "best_result": {
     "model": "gru_d2pred_v2",
     "dataset": "pronostia",

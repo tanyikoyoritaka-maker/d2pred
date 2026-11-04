@@ -1,7 +1,7 @@
 {
   "audit_status": "COMPLETED_NOT_FREEZABLE",
   "freeze_decision": "DO_NOT_FREEZE_CURRENT_PUBLIC_RESULTS",
-  "result_file_used_for_recent_visualisation": "/home/mao/D2Pred/PythonProject2/exp_public_baselines_repaired_transformer/merged_results/overall_expert_public_metrics.csv",
+  "result_file_used_for_recent_visualisation": "external historical workspace; original absolute path redacted",
   "source_lineage": {
     "retained_baselines": "all_public_baselines_metrics.csv, assembled from the 2026-09-16 new_standard priority-2 run",
     "expert_public_rows": "new_standard_rerun_20260915/runs/{ims,pronostia,xjtu_sy}/expert_aligned_aep_gated_causal/metrics.json",

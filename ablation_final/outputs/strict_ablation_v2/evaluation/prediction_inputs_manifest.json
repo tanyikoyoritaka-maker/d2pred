@@ -1,0 +1,1976 @@
+{
+  "protocol_id": "d2pred_strict_ablation_v2",
+  "batch_run_id": "strict_v2_20261103T090504Z_1de96183",
+  "created_at_utc": "2026-11-04T05:59:27.265553+00:00",
+  "prediction_count": 219,
+  "predictions": [
+    {
+      "run_id": "ACSim__no_wiener__fold_0__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_wiener",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACSim/no_wiener/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "eed2cb615d7aa378e30c616fccc9b06ffb309289e9533e6b128566a0a5eb1bf6"
+    },
+    {
+      "run_id": "ACSim__no_wiener__fold_0__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_wiener",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACSim/no_wiener/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "10074307534a14741744dcb3dbab91f656de3dd54e6a40f476a5a45f80ad923c"
+    },
+    {
+      "run_id": "ACSim__no_wiener__fold_0__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_wiener",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACSim/no_wiener/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "98579629f92825c90bcaa8a25414a26a6e10257f9feeb2c89008e0720d4e1e9b"
+    },
+    {
+      "run_id": "ACSim__no_wiener__fold_1__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_wiener",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACSim/no_wiener/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "d080c1cfd77c1f8457f2998ba8c7ab326ba23c7a8e5e85fa482c39d3c1f12627"
+    },
+    {
+      "run_id": "ACSim__no_wiener__fold_1__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_wiener",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACSim/no_wiener/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "7ae53c0401bdaf7327a65fc9796d8f13bb50a68e2d281ee18cb1d5b1f2bac332"
+    },
+    {
+      "run_id": "ACSim__no_wiener__fold_1__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_wiener",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACSim/no_wiener/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "5d99fc10b8f4ca038f5864251321569bb7b685bf4b9293a06ea7e53b45215c1c"
+    },
+    {
+      "run_id": "ACSim__no_wiener__fold_2__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_wiener",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACSim/no_wiener/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "8f15bfd9f7f29d3b560f578b04e2fdfdd465fd03f3d0325f576edb4a02c86177"
+    },
+    {
+      "run_id": "ACSim__no_wiener__fold_2__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_wiener",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACSim/no_wiener/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "ca16a4fa3d604be9fe3226cdbccf8eec8c25b433d79c2c48216d60fcff63d9b7"
+    },
+    {
+      "run_id": "ACSim__no_wiener__fold_2__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_wiener",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACSim/no_wiener/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "d42c2b596e525a5fe07a6d0b4944818ef8fb6ec00ab31e69ad2e0dd91bd8019e"
+    },
+    {
+      "run_id": "ACSim__no_stl__fold_0__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_stl",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACSim/no_stl/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "16be94f543771b1d83f00c819a5ae59d04edc6e811a470b96fec3e55e04d1aa3"
+    },
+    {
+      "run_id": "ACSim__no_stl__fold_0__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_stl",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACSim/no_stl/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "31706070e5bef58955396c4d0bee794e1671e583a41b8e9dd0f825c8af42eac8"
+    },
+    {
+      "run_id": "ACSim__no_stl__fold_0__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_stl",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACSim/no_stl/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "535d0ce6a3ec11cb23b8b4b66ecb46a72d217c7dc29e6516d6f7da83c10c1de2"
+    },
+    {
+      "run_id": "ACSim__no_stl__fold_1__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_stl",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACSim/no_stl/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "a57cdab4718d90907a0ac846b2d7e77bf4e77406425260acbfa220c673aa9820"
+    },
+    {
+      "run_id": "ACSim__no_stl__fold_1__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_stl",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACSim/no_stl/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "d2179005ef0aea59f4016d59267b4c59498b41d014a5fb1cc4f1916c2428b1ad"
+    },
+    {
+      "run_id": "ACSim__no_stl__fold_1__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_stl",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACSim/no_stl/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "d94cdc8b3c1a5a2c7d57261b206f6e56c7bd1dc68d035222f57aa2e14773a584"
+    },
+    {
+      "run_id": "ACSim__no_stl__fold_2__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_stl",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACSim/no_stl/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "43be753796fae6534b5858f51ffaebc61d70dd137260103e4fc460dbcc341229"
+    },
+    {
+      "run_id": "ACSim__no_stl__fold_2__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_stl",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACSim/no_stl/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "623359e33eb2cd7b8e995ec17dc186d53a1bbafa3894723a63bcc746d2e5276f"
+    },
+    {
+      "run_id": "ACSim__no_stl__fold_2__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_stl",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACSim/no_stl/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "eb093d2323ce54429f9b26c1df7531eea3dea518459dfdaf94841ae79d33bcfb"
+    },
+    {
+      "run_id": "ACSim__no_autoencoder_fusion__fold_0__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACSim/no_autoencoder_fusion/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "25cd273229f0867cd39aec42150cdce4698e22cd66d4dc399ad91d4289820c14"
+    },
+    {
+      "run_id": "ACSim__no_autoencoder_fusion__fold_0__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACSim/no_autoencoder_fusion/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "3bc6d7bf220ca66487bb7ed47656cfffec4412f429381d28fa4e472a29503ca8"
+    },
+    {
+      "run_id": "ACSim__no_autoencoder_fusion__fold_0__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACSim/no_autoencoder_fusion/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "e0ae9de9b66242d621a5f270e493f3440c30b65786420f938d6c3d395cf0286b"
+    },
+    {
+      "run_id": "ACSim__no_autoencoder_fusion__fold_1__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACSim/no_autoencoder_fusion/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "1cef37a8904eeaec701fc5e4b5b372777df2f4ba7122502051b732df5eb81feb"
+    },
+    {
+      "run_id": "ACSim__no_autoencoder_fusion__fold_1__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACSim/no_autoencoder_fusion/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "3da3a1858ac289c9ec96488a418aa85785018a075aa0b4dfd5630d3c1e93853f"
+    },
+    {
+      "run_id": "ACSim__no_autoencoder_fusion__fold_1__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACSim/no_autoencoder_fusion/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "a9746ae3a4e5732ab05423eabd6d020b6dd2b59cd8e6fd2c3db7b22a09364b45"
+    },
+    {
+      "run_id": "ACSim__no_autoencoder_fusion__fold_2__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACSim/no_autoencoder_fusion/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "081535e9eed745fb524cab7b3799e4d7f367af04237a554cd6587ee2455b4579"
+    },
+    {
+      "run_id": "ACSim__no_autoencoder_fusion__fold_2__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACSim/no_autoencoder_fusion/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "c99c51323a6a60a28099ef7be84ce07a0bfa86eb3483e101d6e39f292976fbb6"
+    },
+    {
+      "run_id": "ACSim__no_autoencoder_fusion__fold_2__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACSim/no_autoencoder_fusion/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "548ac01c664da2b7d34b028a6ad20a47b9a6ad85a67c33d84e2fc87f3bfe5494"
+    },
+    {
+      "run_id": "ACSim__no_dwc__fold_0__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_dwc",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACSim/no_dwc/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "29960a71192a9b9eb4d167b031adb63cfe480aba30059a73ff015681b65a4fb3"
+    },
+    {
+      "run_id": "ACSim__no_dwc__fold_0__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_dwc",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACSim/no_dwc/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "db08768a0a4f66098faa59872ccb627b1eba07705bfdf2ceb84d6b52264f34aa"
+    },
+    {
+      "run_id": "ACSim__no_dwc__fold_0__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_dwc",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACSim/no_dwc/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "f0b363354d2640ab4061ab6d522df7361e00d8025a83f96b5a855ba4330513ea"
+    },
+    {
+      "run_id": "ACSim__no_dwc__fold_1__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_dwc",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACSim/no_dwc/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "2514040ee64cf83d62842032238c000dc740fc5f5a41c02b54fc26e4281870e2"
+    },
+    {
+      "run_id": "ACSim__no_dwc__fold_1__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_dwc",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACSim/no_dwc/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "8f28f560c11a3e3671816a82abc84d9b9b85273d1aa72f95b58296c8027c23aa"
+    },
+    {
+      "run_id": "ACSim__no_dwc__fold_1__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_dwc",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACSim/no_dwc/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "eafd404bcc67b59c12a4fc2e28ed28d5e14b03b2b4e6419f6cd54f410ea6bee6"
+    },
+    {
+      "run_id": "ACSim__no_dwc__fold_2__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_dwc",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACSim/no_dwc/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "e603369e8e69f70ac0d910066bb8887c2dc3174e1f2e5d0442a60a4ed8db83a3"
+    },
+    {
+      "run_id": "ACSim__no_dwc__fold_2__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_dwc",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACSim/no_dwc/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "70f53e4799a4afbd0bf61464135ae45c90966fef5323d0f6c935858e0ef894a9"
+    },
+    {
+      "run_id": "ACSim__no_dwc__fold_2__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_dwc",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACSim/no_dwc/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "2d6c33b58d4a7ec7161ba6fdcadc392774cd006a52bd1aca213d793e89c4209c"
+    },
+    {
+      "run_id": "ACSim__no_edc__fold_0__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_edc",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACSim/no_edc/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "c27faaadbf7bbeefbe0e43652b27710a220fa8386498a57f53c9fa06c075cd89"
+    },
+    {
+      "run_id": "ACSim__no_edc__fold_0__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_edc",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACSim/no_edc/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "025282f7f3d80417a92dad6cacf7594c94efe71a6bd065f11a21e9d05407080a"
+    },
+    {
+      "run_id": "ACSim__no_edc__fold_0__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_edc",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACSim/no_edc/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "696ec1ba58f498350455a8b297cf34f21fa9ffd9b9be01e3e83c6b9e82ffa663"
+    },
+    {
+      "run_id": "ACSim__no_edc__fold_1__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_edc",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACSim/no_edc/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "040bbeecbbf6a0d5a6edfaa0c24e20982d00894f77067088428e1ae199a8659a"
+    },
+    {
+      "run_id": "ACSim__no_edc__fold_1__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_edc",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACSim/no_edc/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "9d0591251e00e62b6365dd4b52e0c96ec97adeb2a79d29c58f4abbe90760fd7c"
+    },
+    {
+      "run_id": "ACSim__no_edc__fold_1__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_edc",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACSim/no_edc/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "bfcbff9be9c4c9759c1644a93056e3a5dc6f97172d6074acc5b71d65ceb67f44"
+    },
+    {
+      "run_id": "ACSim__no_edc__fold_2__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_edc",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACSim/no_edc/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "3d07e404db6df11dad8dfe05a477950712bd9ca7fcd72034f421761e494c4bc0"
+    },
+    {
+      "run_id": "ACSim__no_edc__fold_2__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_edc",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACSim/no_edc/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "2924d1a5072acd5cce1370944d038d6d93f3051a2e840f9538391babd2018d6a"
+    },
+    {
+      "run_id": "ACSim__no_edc__fold_2__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_edc",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACSim/no_edc/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "3ab9525fbc2b8569ed57755dc70fa1abd2921a606881a2ddc191661f6817abef"
+    },
+    {
+      "run_id": "ACSim__no_decomposition__fold_0__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_decomposition",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACSim/no_decomposition/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "8c29dafbb6ac98297734203a053fb91eb15956be1dd8371e5ff3680298131155"
+    },
+    {
+      "run_id": "ACSim__no_decomposition__fold_0__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_decomposition",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACSim/no_decomposition/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "efc811eac25b418dae2e8ec54375f9c52ea73283b92d5b42c8d72ae38332621d"
+    },
+    {
+      "run_id": "ACSim__no_decomposition__fold_0__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_decomposition",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACSim/no_decomposition/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "e130c1c433995d21a82c8290c19740fec2463401b9e65e788c9e374c0627df07"
+    },
+    {
+      "run_id": "ACSim__no_decomposition__fold_1__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_decomposition",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACSim/no_decomposition/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "e6b2cfb781990f72a67f2fc82fc014e4ae80b8755d5cf99b8d419722ed320cdd"
+    },
+    {
+      "run_id": "ACSim__no_decomposition__fold_1__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_decomposition",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACSim/no_decomposition/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "06af90e4107facff7d13354a5ba0ba67e88d4ba8a1248832f67a2801e2bd889d"
+    },
+    {
+      "run_id": "ACSim__no_decomposition__fold_1__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_decomposition",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACSim/no_decomposition/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "52a4db5c0a7034dfd581eb82588f80a0a17a9d60f9149aa08a947c8ed2b4b1ea"
+    },
+    {
+      "run_id": "ACSim__no_decomposition__fold_2__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_decomposition",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACSim/no_decomposition/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "abaa5200042bf23218c14c54a084588a515a2095780763fa956634b100b589bf"
+    },
+    {
+      "run_id": "ACSim__no_decomposition__fold_2__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_decomposition",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACSim/no_decomposition/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "c28ac442ef5649844bfade932d6f9e965294d77f86ec44688ed38cb71c2081f6"
+    },
+    {
+      "run_id": "ACSim__no_decomposition__fold_2__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_decomposition",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACSim/no_decomposition/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "113e9ef6b854536a0e04414b9704641036c6474aaaac2575786038ddcbeaab6c"
+    },
+    {
+      "run_id": "ACSim__no_fusion__fold_0__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_fusion",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACSim/no_fusion/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "bc29a54c268bbec2698c9d334450af6ed7f22ad75bc6e0adf120bef833b46200"
+    },
+    {
+      "run_id": "ACSim__no_fusion__fold_0__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_fusion",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACSim/no_fusion/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "cd5436f9b0726e14ff3440443777a24a4a8037b5e51207ed95534878436256c1"
+    },
+    {
+      "run_id": "ACSim__no_fusion__fold_0__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_fusion",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACSim/no_fusion/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "a8b013d249030ab6043bf2aafbf309faa5dcac3875f325e0655301a0f9198ef2"
+    },
+    {
+      "run_id": "ACSim__no_fusion__fold_1__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_fusion",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACSim/no_fusion/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "f8dead07fdc3ecf33b65f8d5489db6a3af02217a2f72e83bb5cf7cfa1dffbe45"
+    },
+    {
+      "run_id": "ACSim__no_fusion__fold_1__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_fusion",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACSim/no_fusion/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "62a19fd8a9bd918ddde464e4449bb048f519da4cb0a159c8f444e1319b29c5a1"
+    },
+    {
+      "run_id": "ACSim__no_fusion__fold_1__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_fusion",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACSim/no_fusion/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "51949764595a5d8a85fedecc03d9b22d310750d57253b59fb4af41f4acdefbf9"
+    },
+    {
+      "run_id": "ACSim__no_fusion__fold_2__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_fusion",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACSim/no_fusion/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "7fb25c41bd174f9536f293154ba0a73264d7f8ff08e50ba38cab001ca388e469"
+    },
+    {
+      "run_id": "ACSim__no_fusion__fold_2__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_fusion",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACSim/no_fusion/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "eb3ed2541b97afdb5031f158084db893b4bfc19d9b7be2e971004b193c219742"
+    },
+    {
+      "run_id": "ACSim__no_fusion__fold_2__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_fusion",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACSim/no_fusion/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "5c9e9ebbc9ebe8526ae244b98be52412f2998bd777a434068958a4aa623d2bfc"
+    },
+    {
+      "run_id": "ACSim__no_aep__fold_0__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_aep",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACSim/no_aep/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "31ec020434231c5beaa8210424b352ba036644c49fd38417b8964e667f43c080"
+    },
+    {
+      "run_id": "ACSim__no_aep__fold_0__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_aep",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACSim/no_aep/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "52579ebe1b2b0aa382e682c716df468cbdde92970e99214003c71af5d855d465"
+    },
+    {
+      "run_id": "ACSim__no_aep__fold_0__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_aep",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACSim/no_aep/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "d604505f5ef5f725ae6495cfd936da1889dccf51b6f0e29c1c73b6fa1a86833e"
+    },
+    {
+      "run_id": "ACSim__no_aep__fold_1__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_aep",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACSim/no_aep/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "7a4f20822da711402f115bea28ed797dfb4b0a5a49387fe2b45a190787b877ea"
+    },
+    {
+      "run_id": "ACSim__no_aep__fold_1__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_aep",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACSim/no_aep/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "f8eca5520f8ce976453b851e629b178afbc5a0fc9a8cb569bee49cec85d16a29"
+    },
+    {
+      "run_id": "ACSim__no_aep__fold_1__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_aep",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACSim/no_aep/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "ff22e58018a3cf85c959a7ed9d05b7cb2933b3e22bebab0889ba4f21fe5d3b2c"
+    },
+    {
+      "run_id": "ACSim__no_aep__fold_2__seed_17",
+      "dataset": "ACSim",
+      "variant": "no_aep",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACSim/no_aep/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "30eec0c0535588baa7fd45b758f5752af1617104b156557978bb045b9d3086ec"
+    },
+    {
+      "run_id": "ACSim__no_aep__fold_2__seed_42",
+      "dataset": "ACSim",
+      "variant": "no_aep",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACSim/no_aep/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "a6c60dce9bfde078d5ef898fc0e511d621c91513f352aa24ab44f19c5fca92a4"
+    },
+    {
+      "run_id": "ACSim__no_aep__fold_2__seed_73",
+      "dataset": "ACSim",
+      "variant": "no_aep",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACSim/no_aep/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "c9ac1f9966818d8bfc3a655340d05023aec57df5c9be2ac0538623d764a2d08a"
+    },
+    {
+      "run_id": "ACCom__no_wiener__fold_0__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_wiener",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACCom/no_wiener/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "b5645b53247973ce4061ac35fa359385e204be56dc6359982f10bef0483c576d"
+    },
+    {
+      "run_id": "ACCom__no_wiener__fold_0__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_wiener",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACCom/no_wiener/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "62610ab7f1a8d18eca814d5cb1b4a6726c433dffb3a35d217f3079f37f9036bf"
+    },
+    {
+      "run_id": "ACCom__no_wiener__fold_0__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_wiener",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACCom/no_wiener/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "b82cf4f35272ef63ebf5ea66adbbbe5a8778f0510fef981b28d6ab574a1be9e5"
+    },
+    {
+      "run_id": "ACCom__no_wiener__fold_1__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_wiener",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACCom/no_wiener/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "7972283ed5c9bb95beb8c2aa298290d0020d3921dcce91cb9d82d619cfe8f9b7"
+    },
+    {
+      "run_id": "ACCom__no_wiener__fold_1__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_wiener",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACCom/no_wiener/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "7587773f2b0130761edb4d65dfbe7dfbffa2f1ac2dca2dbee724eb1389c10d8d"
+    },
+    {
+      "run_id": "ACCom__no_wiener__fold_1__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_wiener",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACCom/no_wiener/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "522a3ec1846bf173a715a319bce8e322b5e87c1201ed40a79acaea960c56cb67"
+    },
+    {
+      "run_id": "ACCom__no_wiener__fold_2__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_wiener",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACCom/no_wiener/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "68506ac33562fdea1b176878f7dee27ac6148a1790a239afd53fcaeedc666710"
+    },
+    {
+      "run_id": "ACCom__no_wiener__fold_2__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_wiener",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACCom/no_wiener/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "946113579cbf704a1faaf94dd027fb13ff922d7287464434acb15aa119329e45"
+    },
+    {
+      "run_id": "ACCom__no_wiener__fold_2__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_wiener",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACCom/no_wiener/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "d071d217d30f8ac971da66b875f1226b01c8434d6c4ff305c2501135aee8cfec"
+    },
+    {
+      "run_id": "ACCom__no_stl__fold_0__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_stl",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACCom/no_stl/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "1f007a153dc3363d82ef11084d7e1b56aad0b8e430bd9ad980c01e53e34f9327"
+    },
+    {
+      "run_id": "ACCom__no_stl__fold_0__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_stl",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACCom/no_stl/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "e672fa9dab7ea417d8e8cf11411dbb9bfb829b0e7fd86fb3a7572e450f89588f"
+    },
+    {
+      "run_id": "ACCom__no_stl__fold_0__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_stl",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACCom/no_stl/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "4e516d02604a4e9bb38ed5b4771db16938096fffa5427d517747c1a70e98d19f"
+    },
+    {
+      "run_id": "ACCom__no_stl__fold_1__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_stl",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACCom/no_stl/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "fbebc8d9be8446a175360b6884115a1b969661253eaf2aeed07e9e5a0b4cb986"
+    },
+    {
+      "run_id": "ACCom__no_stl__fold_1__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_stl",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACCom/no_stl/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "6ca0be794b17790e367ef4c4787ba187f0f6215b27fe05cbdd1e98b063e85658"
+    },
+    {
+      "run_id": "ACCom__no_stl__fold_1__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_stl",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACCom/no_stl/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "0a6de36770f0e23f0386c50cae1935d8ad1620b3eba4fd9f8779ed4a141c10f1"
+    },
+    {
+      "run_id": "ACCom__no_stl__fold_2__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_stl",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACCom/no_stl/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "ad92b7829ad54530601fc878dbbf0083588f2627a6ed7034710c4a2b3d85086d"
+    },
+    {
+      "run_id": "ACCom__no_stl__fold_2__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_stl",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACCom/no_stl/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "61a7d29641a42a132bcc1cd43b03a5aacee71a4fc35d03297fa42fbcf4c87d0c"
+    },
+    {
+      "run_id": "ACCom__no_stl__fold_2__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_stl",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACCom/no_stl/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "06729e40d56341c0b5b83dffc68c0ab301f067fd6e6b83f8b5053c60446cf2cd"
+    },
+    {
+      "run_id": "ACCom__no_autoencoder_fusion__fold_0__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACCom/no_autoencoder_fusion/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "6be15fc1f177e49ad29086e0a5646a339735925b666aa4a79a13e9411e19c5bd"
+    },
+    {
+      "run_id": "ACCom__no_autoencoder_fusion__fold_0__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACCom/no_autoencoder_fusion/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "e81f121db6ab0392165a8ad9bf734682f72fd73c3e8481b5e351103fdd4fccf1"
+    },
+    {
+      "run_id": "ACCom__no_autoencoder_fusion__fold_0__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACCom/no_autoencoder_fusion/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "5b8acd8ffde3e89ea9e1021acf80e2dbc079f0b56d6288cee8d76a0206d9a750"
+    },
+    {
+      "run_id": "ACCom__no_autoencoder_fusion__fold_1__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACCom/no_autoencoder_fusion/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "ba3fddd5f9360cb19472e40d7b91fcb5bc8090154697a5ce590c452901741c25"
+    },
+    {
+      "run_id": "ACCom__no_autoencoder_fusion__fold_1__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACCom/no_autoencoder_fusion/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "155e9d572c0568886b52f1a1342f3f4d9f28458ffe5325f6559d56dc73a46b11"
+    },
+    {
+      "run_id": "ACCom__no_autoencoder_fusion__fold_1__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACCom/no_autoencoder_fusion/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "caa56e2144079569881b475f3e7f0b2938c69b429bca66de33c0692684898665"
+    },
+    {
+      "run_id": "ACCom__no_autoencoder_fusion__fold_2__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACCom/no_autoencoder_fusion/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "09c41a0947fc80230b6183bf4e360bfec74e9c8426b87c01a1150fc8553a48b0"
+    },
+    {
+      "run_id": "ACCom__no_autoencoder_fusion__fold_2__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACCom/no_autoencoder_fusion/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "287ea62588e4ab595922b37acfba6fcc5dd8c29718140f6095ec5d8aafddf2b0"
+    },
+    {
+      "run_id": "ACCom__no_autoencoder_fusion__fold_2__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACCom/no_autoencoder_fusion/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "2a78a5bcd58dd0134c68ca45db94f9a17239e46dbf5157194dbdb215840b82f2"
+    },
+    {
+      "run_id": "ACCom__no_dwc__fold_0__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_dwc",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACCom/no_dwc/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "22db269080cdbc1656f92a2174f417180ddac1732c7d5c47ac5b40a497b6accc"
+    },
+    {
+      "run_id": "ACCom__no_dwc__fold_0__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_dwc",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACCom/no_dwc/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "528cb70a9c5a42c14bb634805a5cd889974802662268c4f4b86b9d9e8b9c1378"
+    },
+    {
+      "run_id": "ACCom__no_dwc__fold_0__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_dwc",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACCom/no_dwc/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "6bbdf931ed02e2a08fa39fefebd8731a444492f1233ae21fbdb90dacea992d38"
+    },
+    {
+      "run_id": "ACCom__no_dwc__fold_1__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_dwc",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACCom/no_dwc/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "083866c1b6ebb375d15b256f0e9e4bfb5e25e81d0bea8cfb836844460c2ea83d"
+    },
+    {
+      "run_id": "ACCom__no_dwc__fold_1__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_dwc",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACCom/no_dwc/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "3d6bf08ebf5a024d3111d41c8068e142b514123be2f9773bfee296d4827fd741"
+    },
+    {
+      "run_id": "ACCom__no_dwc__fold_1__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_dwc",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACCom/no_dwc/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "c905bd9339a97c009d2a177f68fe6aa0e71e76039ede227d462ea16be7030a65"
+    },
+    {
+      "run_id": "ACCom__no_dwc__fold_2__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_dwc",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACCom/no_dwc/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "f27184d632570c66a843b7d613da1e38758d7e9cf290e578c85e1aaa3ea921d0"
+    },
+    {
+      "run_id": "ACCom__no_dwc__fold_2__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_dwc",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACCom/no_dwc/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "9810f011ae0fa398061c8189bcb621a5688922c277270083843f86452c4d5dc9"
+    },
+    {
+      "run_id": "ACCom__no_dwc__fold_2__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_dwc",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACCom/no_dwc/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "f89c2ca306dea2d5249f52585443b3a9dde7edef42a6c8a327fa05d095c8c6e6"
+    },
+    {
+      "run_id": "ACCom__no_edc__fold_0__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_edc",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACCom/no_edc/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "71529bee021ab6909eec2b5ba706dfca85af1fbf0b02dd0d6f55bd6c3dd28848"
+    },
+    {
+      "run_id": "ACCom__no_edc__fold_0__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_edc",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACCom/no_edc/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "85ed47c6c9559b9a28b2ac5118b670954ed7af3b6085ce1df08df6119845f390"
+    },
+    {
+      "run_id": "ACCom__no_edc__fold_0__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_edc",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACCom/no_edc/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "ee0243e120bf572274240db257f0d534204f213af398c2ed0f0d5f31dcaea037"
+    },
+    {
+      "run_id": "ACCom__no_edc__fold_1__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_edc",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACCom/no_edc/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "b9945e53aa3041478e74439e36b899d58fdd2e6e137be4dba88e8fbe2aed2e61"
+    },
+    {
+      "run_id": "ACCom__no_edc__fold_1__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_edc",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACCom/no_edc/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "337da82e61f622a2c65af23c337930f39524e914b49511ca7aad32c47c1fc36d"
+    },
+    {
+      "run_id": "ACCom__no_edc__fold_1__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_edc",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACCom/no_edc/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "0773d98fc514f14762aa09b4b53b4bf0624b599dc557a161a50320e431e042da"
+    },
+    {
+      "run_id": "ACCom__no_edc__fold_2__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_edc",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACCom/no_edc/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "599b8facffa72dc1729b8a0985f53802814e66d805bf6467ed908aef80647614"
+    },
+    {
+      "run_id": "ACCom__no_edc__fold_2__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_edc",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACCom/no_edc/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "13b95b95ff590eafa86f1fabc8cb66e18d1a67a8826509871221f9b7a40704be"
+    },
+    {
+      "run_id": "ACCom__no_edc__fold_2__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_edc",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACCom/no_edc/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "03c7caa132fb479139d5fa3bb06a9a146be07f357a0d54ca50ba09d26828b278"
+    },
+    {
+      "run_id": "ACCom__no_decomposition__fold_0__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_decomposition",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACCom/no_decomposition/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "28acda2ad2ca14636d7d86edda261ffcfd4d21361798e6cb2a43246311cb896d"
+    },
+    {
+      "run_id": "ACCom__no_decomposition__fold_0__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_decomposition",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACCom/no_decomposition/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "6135171fa112a99eeb96796a3ba9b0631ad75b79f38e418ebf7261ddc5c1e668"
+    },
+    {
+      "run_id": "ACCom__no_decomposition__fold_0__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_decomposition",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACCom/no_decomposition/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "25d5978df6f9c15b7898c324721a9166c78e223c405b1bbf2af88964b948bb68"
+    },
+    {
+      "run_id": "ACCom__no_decomposition__fold_1__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_decomposition",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACCom/no_decomposition/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "5ca191e6debb2a7bcd5d185adfeefe58bc46ac417f5b98901c6be8721b28f004"
+    },
+    {
+      "run_id": "ACCom__no_decomposition__fold_1__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_decomposition",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACCom/no_decomposition/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "85e985619d5bd6838b1c14f9eec72252337a287b0077fb81694e54bf5f6722be"
+    },
+    {
+      "run_id": "ACCom__no_decomposition__fold_1__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_decomposition",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACCom/no_decomposition/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "ae407ec4522a2d3135bc903be9217fe4ab15458033798eba6736e833c9a6f2e9"
+    },
+    {
+      "run_id": "ACCom__no_decomposition__fold_2__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_decomposition",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACCom/no_decomposition/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "977d7c9c4c7b3b630c898c9e2f146a5533f1e34d20e63a80d5176dc94438f30a"
+    },
+    {
+      "run_id": "ACCom__no_decomposition__fold_2__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_decomposition",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACCom/no_decomposition/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "efe4ce6afdd593ef24c2caaabbf7ce16c1daf26e3cca1db6d8fec2166c8401ad"
+    },
+    {
+      "run_id": "ACCom__no_decomposition__fold_2__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_decomposition",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACCom/no_decomposition/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "181cf3de964da3e88d18ba512bfcd6c7df07298b67229c7f8b48fc2068da40fd"
+    },
+    {
+      "run_id": "ACCom__no_fusion__fold_0__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_fusion",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACCom/no_fusion/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "342c5bb1fbee55a0aa63d71f61bcc835d044fd71f6a7725687c2e609cdda1f5f"
+    },
+    {
+      "run_id": "ACCom__no_fusion__fold_0__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_fusion",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACCom/no_fusion/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "184a2e834324e92200f9cfea28aa343073f68703b04bcc25014da972eb178c35"
+    },
+    {
+      "run_id": "ACCom__no_fusion__fold_0__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_fusion",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACCom/no_fusion/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "f42a5ad452dff1b4bcafafaaa05ce443eb2974737f028c6eefdb961245f850e1"
+    },
+    {
+      "run_id": "ACCom__no_fusion__fold_1__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_fusion",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACCom/no_fusion/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "a23c58ed71efd1f3a1368492c0c79c0e33617d5c209ebf514e46fde487b18ea0"
+    },
+    {
+      "run_id": "ACCom__no_fusion__fold_1__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_fusion",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACCom/no_fusion/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "1bfb651d1c7f8b92e172dbc56580e556f13cf95b6330661d6877c57f921f2b50"
+    },
+    {
+      "run_id": "ACCom__no_fusion__fold_1__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_fusion",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACCom/no_fusion/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "aff2b23c6dcd7d11412bfc3fa159bd9304f9bb48fad3c13d7187dee815f01672"
+    },
+    {
+      "run_id": "ACCom__no_fusion__fold_2__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_fusion",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACCom/no_fusion/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "27f426826441f09af752f56b1645943c817e8ead6819bde43010cfe76ef56155"
+    },
+    {
+      "run_id": "ACCom__no_fusion__fold_2__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_fusion",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACCom/no_fusion/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "46ebf3a7b60ec2d95777339293d9ca7cf9c4401fa752005d51695a1631042614"
+    },
+    {
+      "run_id": "ACCom__no_fusion__fold_2__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_fusion",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACCom/no_fusion/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "534cb70ea1444247692db5f9a49ac677c28191b42885b40b8141d82d88ec1df3"
+    },
+    {
+      "run_id": "ACCom__no_aep__fold_0__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_aep",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACCom/no_aep/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "4734e0e871884261f5d6f4bd399decdd92afbc87184f7119677bb5d377f34e5e"
+    },
+    {
+      "run_id": "ACCom__no_aep__fold_0__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_aep",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACCom/no_aep/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "ed8b28944aa38f06e8fd3b9d75691845aceffb43031d70d521b2221289275156"
+    },
+    {
+      "run_id": "ACCom__no_aep__fold_0__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_aep",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACCom/no_aep/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "2113e73487cb38639c497c1b07d68a1568c5f6e9f02bae58e926ae40767aa65a"
+    },
+    {
+      "run_id": "ACCom__no_aep__fold_1__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_aep",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACCom/no_aep/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "f1629e064cb933ee7c3283bf6474d1afc87651cde3f0a2da81e0c6442cce565d"
+    },
+    {
+      "run_id": "ACCom__no_aep__fold_1__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_aep",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACCom/no_aep/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "f5e27d33801e30e5d5ab28a6cefdcf101145ddb5e4eb926ffc60926e6f3691da"
+    },
+    {
+      "run_id": "ACCom__no_aep__fold_1__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_aep",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACCom/no_aep/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "36dde6ca9dc00e4b24b129eb159549c902e4857a6c7fe91bda77842f8cca1c4a"
+    },
+    {
+      "run_id": "ACCom__no_aep__fold_2__seed_17",
+      "dataset": "ACCom",
+      "variant": "no_aep",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACCom/no_aep/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "327b2493c2d784b7d4fc650fc1e6190d70e2cd7dc2c915564569d088e3178245"
+    },
+    {
+      "run_id": "ACCom__no_aep__fold_2__seed_42",
+      "dataset": "ACCom",
+      "variant": "no_aep",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACCom/no_aep/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "4b6723b822ee1fedf6b71af407c1673956a51336ec753c90bcb501641fb47901"
+    },
+    {
+      "run_id": "ACCom__no_aep__fold_2__seed_73",
+      "dataset": "ACCom",
+      "variant": "no_aep",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACCom/no_aep/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "e5c4d67d85f9af2456c6e685d01f1051cbb5a55506f4b863cfaf40c7b2f8f706"
+    },
+    {
+      "run_id": "ACAll__no_wiener__fold_0__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_wiener",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACAll/no_wiener/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "061af1da4c84e151ce73960e1032c3ab71423e9a0a42b7fc105cfa399dde0c5a"
+    },
+    {
+      "run_id": "ACAll__no_wiener__fold_0__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_wiener",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACAll/no_wiener/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "0b1e373a7a2d3ffc68de26cbd98f611d9ed0474608a45f5fa54b12a3469f6b4a"
+    },
+    {
+      "run_id": "ACAll__no_wiener__fold_0__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_wiener",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACAll/no_wiener/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "cbc3452274f4e429d76a2dd39e9be8cc9b52b263981b01b22dea0820dfeb008e"
+    },
+    {
+      "run_id": "ACAll__no_wiener__fold_1__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_wiener",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACAll/no_wiener/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "d834bffe3ebf5cd36a427fd7bbeb66d97f0b53ca471df76855dc48fdd6cab72e"
+    },
+    {
+      "run_id": "ACAll__no_wiener__fold_1__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_wiener",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACAll/no_wiener/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "bbad9dceb5598847af8417a949315b8bb25522bfc8c2ecc11c56d54f78c5c9a3"
+    },
+    {
+      "run_id": "ACAll__no_wiener__fold_1__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_wiener",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACAll/no_wiener/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "4194cfbb0a82dab5fdd7f20464b4710700bdd45cd316168da86c5f6f7fb7fc29"
+    },
+    {
+      "run_id": "ACAll__no_wiener__fold_2__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_wiener",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACAll/no_wiener/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "549191c1590b00969a8d4bad35b0fbd15cbc775325059cc63ad147febc480999"
+    },
+    {
+      "run_id": "ACAll__no_wiener__fold_2__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_wiener",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACAll/no_wiener/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "e700aacaa8546955c11e296b4e8e5e3af1e1df99e562c0d0ec59cd658dc83534"
+    },
+    {
+      "run_id": "ACAll__no_wiener__fold_2__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_wiener",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACAll/no_wiener/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "f24fe6b60c8d2a5be99c5ed73cf64a46f782cafe2407828938281a35b0a408f1"
+    },
+    {
+      "run_id": "ACAll__no_stl__fold_0__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_stl",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACAll/no_stl/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "71e6e348a18d2928afe35ad6906047d9108a819642d12f04328053b5d04289ae"
+    },
+    {
+      "run_id": "ACAll__no_stl__fold_0__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_stl",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACAll/no_stl/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "4f1f62b9cdadf2666ae632de40fdec41e35b69392f0322291a1de8106a18da1a"
+    },
+    {
+      "run_id": "ACAll__no_stl__fold_0__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_stl",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACAll/no_stl/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "174be6111df48bf87aa4c00090feccb2c0b3860ddade9dfe7e543df9df3c0064"
+    },
+    {
+      "run_id": "ACAll__no_stl__fold_1__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_stl",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACAll/no_stl/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "5d08b7af72b8c5cd223e21ad6427e96e89fe5f209c9a836f1095ae9b9f922e81"
+    },
+    {
+      "run_id": "ACAll__no_stl__fold_1__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_stl",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACAll/no_stl/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "78dd9bb2d563a8b34efc1d1794e5db110e35ca45ce2fe053e0821f5bb30e7164"
+    },
+    {
+      "run_id": "ACAll__no_stl__fold_1__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_stl",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACAll/no_stl/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "f21e6228cb4b373336dedcd3fe672acb7f837d2f906238711a48274429d54e2a"
+    },
+    {
+      "run_id": "ACAll__no_stl__fold_2__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_stl",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACAll/no_stl/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "93fc906c445d43667849040ced99136e13201f9b69f76fa73309eb2e6eea4954"
+    },
+    {
+      "run_id": "ACAll__no_stl__fold_2__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_stl",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACAll/no_stl/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "588cb3310c7408873c63b0e0d25c3379f92cb8e3e6b2775139d0b1d032717f7c"
+    },
+    {
+      "run_id": "ACAll__no_stl__fold_2__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_stl",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACAll/no_stl/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "6d1836e995b6dbf8c16be2d65a992bad6dc04b052be5de4680a3b925b1c57d60"
+    },
+    {
+      "run_id": "ACAll__no_autoencoder_fusion__fold_0__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACAll/no_autoencoder_fusion/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "77bd1d770b95f722a45337051ebfb2d534ba43af7bab4d976d7791eb3d2001a9"
+    },
+    {
+      "run_id": "ACAll__no_autoencoder_fusion__fold_0__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACAll/no_autoencoder_fusion/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "30d7f2cfbb02eec830adb919ffe2672aac37faf8fb56f65c175f7cb70648b2e1"
+    },
+    {
+      "run_id": "ACAll__no_autoencoder_fusion__fold_0__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACAll/no_autoencoder_fusion/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "d0e73548aa95a7fdb1743f095ea38f5434fab0f69adf16d8a3b276e629c8a2d3"
+    },
+    {
+      "run_id": "ACAll__no_autoencoder_fusion__fold_1__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACAll/no_autoencoder_fusion/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "3c405b28662b8cb302efcbd8a02e97d1c01209fe1f9255bcea9c8f3acf71917b"
+    },
+    {
+      "run_id": "ACAll__no_autoencoder_fusion__fold_1__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACAll/no_autoencoder_fusion/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "bbde1ac01345adf647c10541096dca85057bf090cf0fa0547e228a4e53619f25"
+    },
+    {
+      "run_id": "ACAll__no_autoencoder_fusion__fold_1__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACAll/no_autoencoder_fusion/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "52c0059916c2fbaf5c7f3f8a4eb06d33f6e757efdbbec02ab244cb6af712ae3a"
+    },
+    {
+      "run_id": "ACAll__no_autoencoder_fusion__fold_2__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACAll/no_autoencoder_fusion/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "8fda33502723743369f676cdbd546e4c99012a197f274bf8959b7002a2700840"
+    },
+    {
+      "run_id": "ACAll__no_autoencoder_fusion__fold_2__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACAll/no_autoencoder_fusion/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "b7011acf542d0426f7516bb9fc6c28ca0141486bc35129d82ff9222b4a58aa65"
+    },
+    {
+      "run_id": "ACAll__no_autoencoder_fusion__fold_2__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_autoencoder_fusion",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACAll/no_autoencoder_fusion/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "67f643d30a6d571396e671ce6f1c131d4e0af16a523e01d7e864e02bcbdd0551"
+    },
+    {
+      "run_id": "ACAll__no_dwc__fold_0__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_dwc",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACAll/no_dwc/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "816f11912c66ce378a16b4a366168dad92ae498ffc3ac8944c51172bf302d6a7"
+    },
+    {
+      "run_id": "ACAll__no_dwc__fold_0__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_dwc",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACAll/no_dwc/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "5051b18851dc3254ec088449544b5633d5ef9cca5dfe3665518c0b1f26d1a228"
+    },
+    {
+      "run_id": "ACAll__no_dwc__fold_0__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_dwc",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACAll/no_dwc/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "f63b8c621dda6d60d0053a3f13ed9ab572de5d5afc8f3d14c3811ada02f7c92b"
+    },
+    {
+      "run_id": "ACAll__no_dwc__fold_1__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_dwc",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACAll/no_dwc/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "6945978c6fa3fca9b0cd550e39b22e8bf6410c9bc7ddb4232838233ab372902b"
+    },
+    {
+      "run_id": "ACAll__no_dwc__fold_1__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_dwc",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACAll/no_dwc/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "a05f0d5e432ccba5a17e15635c3fd49b7f83cec4cc2335f26350ca4eb0a23136"
+    },
+    {
+      "run_id": "ACAll__no_dwc__fold_1__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_dwc",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACAll/no_dwc/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "25d1aa11b74a0a327f87734d80d4478dfef17e660a3cada17c30ce9d85f6c05a"
+    },
+    {
+      "run_id": "ACAll__no_dwc__fold_2__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_dwc",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACAll/no_dwc/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "003363caca1f225a65b0c62fae34363ee8dd0faf1678228f85a75c7d8bbc3bb8"
+    },
+    {
+      "run_id": "ACAll__no_dwc__fold_2__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_dwc",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACAll/no_dwc/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "a585181a80f5405593aa1815280dd769ba2e8b8549af5510ba1a1ef79d734872"
+    },
+    {
+      "run_id": "ACAll__no_dwc__fold_2__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_dwc",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACAll/no_dwc/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "ae03deeac6b7a6fbaac848dfcb5bbc3445e101727c37976c12f4701a2f85ba3b"
+    },
+    {
+      "run_id": "ACAll__no_edc__fold_0__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_edc",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACAll/no_edc/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "030ef6ccf68612f6e8134d796bb7db0665e69413f6fbaec4b6aae24bded0c370"
+    },
+    {
+      "run_id": "ACAll__no_edc__fold_0__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_edc",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACAll/no_edc/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "e0274d500916d344389b7eb05670c963555bb44ce43f3232ae335e5325c1f9f8"
+    },
+    {
+      "run_id": "ACAll__no_edc__fold_0__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_edc",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACAll/no_edc/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "37da21d723ac79c4a1c8f5fba7e9e9fa1e0a0926fe3c5d94afeb1f557e511927"
+    },
+    {
+      "run_id": "ACAll__no_edc__fold_1__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_edc",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACAll/no_edc/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "4c59c5cff40439a66ef962b2b1ffcb75ab5a0d5b61a9299ada06722eeff293cf"
+    },
+    {
+      "run_id": "ACAll__no_edc__fold_1__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_edc",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACAll/no_edc/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "072caf6f4498d0fbae79651d36c661b279c32299a765c0dec4ba602e936161df"
+    },
+    {
+      "run_id": "ACAll__no_edc__fold_1__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_edc",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACAll/no_edc/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "ddbb37a4a06d3455603a79d814ef27745becf60a9db9532d7bfdb02ad914647c"
+    },
+    {
+      "run_id": "ACAll__no_edc__fold_2__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_edc",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACAll/no_edc/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "377ae29facf2096c397b4e1cb86f934352844de819ad10c4d8733df41d1125cf"
+    },
+    {
+      "run_id": "ACAll__no_edc__fold_2__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_edc",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACAll/no_edc/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "a7739889115a60a7f819a665a8747dd75637b3c170107f30c7e9e62e14295cd0"
+    },
+    {
+      "run_id": "ACAll__no_edc__fold_2__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_edc",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACAll/no_edc/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "ec276709491946e3f1ad9876d3e8168b59cd086f0d63c4d55a61b1313d74ff02"
+    },
+    {
+      "run_id": "ACAll__no_decomposition__fold_0__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_decomposition",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACAll/no_decomposition/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "b6530840a4cc7d2e21c9c59e27a01c8b0611ab49e29d16860b5f996fe216cb2f"
+    },
+    {
+      "run_id": "ACAll__no_decomposition__fold_0__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_decomposition",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACAll/no_decomposition/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "6e0e5fad4bfbcbb89e9deb5017268ef47cecfd5837611dad173ea992f5e538fc"
+    },
+    {
+      "run_id": "ACAll__no_decomposition__fold_0__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_decomposition",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACAll/no_decomposition/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "755d10166cef3fbb9e970fe32af2dd762224491f3338ea16c49f80a8c8477c0f"
+    },
+    {
+      "run_id": "ACAll__no_decomposition__fold_1__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_decomposition",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACAll/no_decomposition/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "8acedb3bcc2fd9f3bb05ff75d98f4734111f2dc10ca8479373b267018276769b"
+    },
+    {
+      "run_id": "ACAll__no_decomposition__fold_1__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_decomposition",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACAll/no_decomposition/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "5662ef4c2c0deb4df9776b36036bb031273d3c3c548ea7f06b988365f950885e"
+    },
+    {
+      "run_id": "ACAll__no_decomposition__fold_1__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_decomposition",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACAll/no_decomposition/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "a05f9520f9feffd77ead3b037118ba157214ba991f86daa8d84ae49a97d4d0bc"
+    },
+    {
+      "run_id": "ACAll__no_decomposition__fold_2__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_decomposition",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACAll/no_decomposition/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "714a20d64702dc254a8c807dd98b90bf99407e74a93fba3a6cb71aa976e02228"
+    },
+    {
+      "run_id": "ACAll__no_decomposition__fold_2__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_decomposition",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACAll/no_decomposition/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "9743229f922d6ae7877983e04d5227e902a9824220af2ec38c5871e6d8c6e46b"
+    },
+    {
+      "run_id": "ACAll__no_decomposition__fold_2__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_decomposition",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACAll/no_decomposition/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "834a17d82faa839b81febd734fbe8eb601234ea931c4321e0eea9ec9cb764fdc"
+    },
+    {
+      "run_id": "ACAll__no_fusion__fold_0__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_fusion",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACAll/no_fusion/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "5b312333c95c1728f501184aaedaf8d510a5e3ab79dc58bc3d6308046e25eb29"
+    },
+    {
+      "run_id": "ACAll__no_fusion__fold_0__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_fusion",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACAll/no_fusion/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "91e4c2761c501e7bcfaa4ee463f478929d1ac131e437ef9201757ef3ee1b6041"
+    },
+    {
+      "run_id": "ACAll__no_fusion__fold_0__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_fusion",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACAll/no_fusion/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "37f8adb533b48623ae7886468c64df31da73ad632d84bca6108664c3070f09a5"
+    },
+    {
+      "run_id": "ACAll__no_fusion__fold_1__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_fusion",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACAll/no_fusion/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "396d4fe960d0ac083372c4a9ce1ed831daa23e93bfe821028100fce17f190bbe"
+    },
+    {
+      "run_id": "ACAll__no_fusion__fold_1__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_fusion",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACAll/no_fusion/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "aa5646c34228624e957881b9e7c274db08c9f4387ed3cc91c7efe02d04e9bc02"
+    },
+    {
+      "run_id": "ACAll__no_fusion__fold_1__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_fusion",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACAll/no_fusion/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "30597da44606301ef4b28d5083a003e0a4d75b591968f3b089b1e5aa41d421c5"
+    },
+    {
+      "run_id": "ACAll__no_fusion__fold_2__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_fusion",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACAll/no_fusion/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "c6ac9e7a14cc7e84db0a20b205ca504283203036f0bb42df799794e97fc7f4e2"
+    },
+    {
+      "run_id": "ACAll__no_fusion__fold_2__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_fusion",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACAll/no_fusion/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "e3c7ea83e696bf3bf03f55743bad0b75eb4ff0d09b07f7a55f5a686a105ec7fd"
+    },
+    {
+      "run_id": "ACAll__no_fusion__fold_2__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_fusion",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACAll/no_fusion/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "28611fbfb9db0eec9ea33d1d199527ef3ad4a841b780c7c51b8000c82288aaff"
+    },
+    {
+      "run_id": "ACAll__no_aep__fold_0__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_aep",
+      "outer_fold": 0,
+      "seed": 17,
+      "path": "ACAll/no_aep/outer_fold_0/seed_17/test_predictions.csv",
+      "sha256": "0033a4a4a8ecea3f2ae8285f483bdabb9b2d9b1221fb7858ad2c969b682df38f"
+    },
+    {
+      "run_id": "ACAll__no_aep__fold_0__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_aep",
+      "outer_fold": 0,
+      "seed": 42,
+      "path": "ACAll/no_aep/outer_fold_0/seed_42/test_predictions.csv",
+      "sha256": "90e789bb6eeeed521ec070588edf946f0075c2c79d5001548ea0056029c46438"
+    },
+    {
+      "run_id": "ACAll__no_aep__fold_0__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_aep",
+      "outer_fold": 0,
+      "seed": 73,
+      "path": "ACAll/no_aep/outer_fold_0/seed_73/test_predictions.csv",
+      "sha256": "999f8d8fd1d7edc9f0ab25c5929aadc8d5d4276107384d650f5fc57d6404d3ae"
+    },
+    {
+      "run_id": "ACAll__no_aep__fold_1__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_aep",
+      "outer_fold": 1,
+      "seed": 17,
+      "path": "ACAll/no_aep/outer_fold_1/seed_17/test_predictions.csv",
+      "sha256": "d14689d4cf27ff16eec9ac7b836fe203fa97e551867a930a91ce51857a23b560"
+    },
+    {
+      "run_id": "ACAll__no_aep__fold_1__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_aep",
+      "outer_fold": 1,
+      "seed": 42,
+      "path": "ACAll/no_aep/outer_fold_1/seed_42/test_predictions.csv",
+      "sha256": "235dcfaa602b69fd8d550817ea072cc43f1023e4da113feb575284b022323535"
+    },
+    {
+      "run_id": "ACAll__no_aep__fold_1__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_aep",
+      "outer_fold": 1,
+      "seed": 73,
+      "path": "ACAll/no_aep/outer_fold_1/seed_73/test_predictions.csv",
+      "sha256": "0aa1b4fbf1f6d4a77f69b98a3be405c1ab9a612baefe33e0788aabf02a4f8d4f"
+    },
+    {
+      "run_id": "ACAll__no_aep__fold_2__seed_17",
+      "dataset": "ACAll",
+      "variant": "no_aep",
+      "outer_fold": 2,
+      "seed": 17,
+      "path": "ACAll/no_aep/outer_fold_2/seed_17/test_predictions.csv",
+      "sha256": "d25f3fded221077ec3d79c101b2715293a1da8c2b2b825a8dd25163d6f47ee6a"
+    },
+    {
+      "run_id": "ACAll__no_aep__fold_2__seed_42",
+      "dataset": "ACAll",
+      "variant": "no_aep",
+      "outer_fold": 2,
+      "seed": 42,
+      "path": "ACAll/no_aep/outer_fold_2/seed_42/test_predictions.csv",
+      "sha256": "25592ffd094ab00bc976d574746d6577065deb271e0d5ad07ae8efb9367507da"
+    },
+    {
+      "run_id": "ACAll__no_aep__fold_2__seed_73",
+      "dataset": "ACAll",
+      "variant": "no_aep",
+      "outer_fold": 2,
+      "seed": 73,
+      "path": "ACAll/no_aep/outer_fold_2/seed_73/test_predictions.csv",
+      "sha256": "fb8f3ef46f9abb143b82b5253c69758977fc1f1f1c3fb0ed0e4f0d9c2d640bb9"
+    },
+    {
+      "run_id": "ACSim__full__frozen_reference",
+      "dataset": "ACSim",
+      "variant": "full",
+      "path": "results/frozen_protocol_final/comparison/ACSim/test_predictions.csv",
+      "sha256": "699dc759936ca42f796e7eb9e5bfa9ffe8bde5e290eefeb44d3d3298966bb4cd",
+      "source": "frozen_primary_comparison"
+    },
+    {
+      "run_id": "ACCom__full__frozen_reference",
+      "dataset": "ACCom",
+      "variant": "full",
+      "path": "results/frozen_protocol_final/comparison/ACCom/test_predictions.csv",
+      "sha256": "f5015cd52edc5c25683bf34329509c22bc8ed7290647f1965a2c825b00028c62",
+      "source": "frozen_primary_comparison"
+    },
+    {
+      "run_id": "ACAll__full__frozen_reference",
+      "dataset": "ACAll",
+      "variant": "full",
+      "path": "results/frozen_protocol_final/comparison/ACAll/test_predictions.csv",
+      "sha256": "f929a6718ea8ed8b1e5c783d47ac085bdff14853b37c403f7a8116242d8255fa",
+      "source": "frozen_primary_comparison"
+    }
+  ]
+}

@@ -1,20 +1,16 @@
-# D2Pred experiment archive
+# D2Pred frozen experiment archive
 
-The active sources and statuses are recorded in
-`manifests/active_experiment_registry.json`. The primary AC comparisons and
-sensitivity results remain in `results/frozen_protocol_final/`; public results
-and computational measurements retain their separate verified packages.
+This file describes the frozen comparison and sensitivity result packages. The
+current status of the comparison, sensitivity, and subsequently completed
+strict-v2 ablation experiments is recorded in `docs/EXPERIMENT_REGISTRY.md` and
+`manifests/active_experiment_registry.json`.
 
-The proposed controlled-ablation package is invalidated and has no active
-runner. Historical recovery is documented in
-`ablation_recovery/reports/historical_ablation_recovery_report.md`; its actual
-code, run records, data lineage, and saved predictions are the review evidence.
-Earlier protocols are retrieval clues only. No new protocol or training run is
-authorized until the recovered implementation and results receive human review.
+Earlier ablation rejection and approval-pending statements in repository
+history describe pre-execution candidates. They remain historical context and
+do not supersede the strict-v2 run record, which records 216 completed runs and
+the result hash listed in the current registry.
 
-Superseded ablation results, protocols, and invalid v3 outputs are preserved
-with SHA-256 manifests under `../d2pred_rubbish/`. They are historical or
-rejected materials, not current paper evidence. The cleanup status is recorded
-in `ablation_recovery/reports/ablation_contamination_cleanup_report.md`.
-Large data, checkpoints and runtime outputs remain outside Git and are retained
-in the working archive. The proprietary raw-waveform-to-DI mapping is not released.
+Rejected and superseded experiments remain archived outside this repository
+under `../d2pred_rubbish/`. They are not sources for current paper results.
+Private industrial DI data, checkpoints, per-prefix predictions, and runtime
+caches remain outside Git. The raw-waveform-to-DI mapping is not released.

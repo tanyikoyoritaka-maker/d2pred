@@ -4,7 +4,7 @@
 
 The recent experiment is:
 
-`/home/mao/D2Pred/PythonProject2/results/expert_rerun_approved_v1/public_paper_nested`
+an external historical workspace (the original absolute server path is redacted)
 
 Its protocol and results were created on 2026-09-16. The model `gru_d2pred_v2` obtained the best RMSE among the old public-baseline comparison on PRONOSTIA:
 

@@ -1,0 +1,18 @@
+{
+  "record_type": "metrics_manifest",
+  "protocol_id": "d2pred_strict_ablation_v2",
+  "batch_run_id": "strict_v2_20261103T090504Z_1de96183",
+  "evaluation_code_commit": "51c696597efc5e436ad14a73b8fcd026907bd542",
+  "evaluation_code_sha256": "12a2f5a9354177396fb9476f485255a1abf465e1d39c390b6967f27970154a5f",
+  "prediction_inputs_manifest": "evaluation/prediction_inputs_manifest.json",
+  "prediction_inputs_manifest_sha256": "924ef6bc389dd0e8f6c6bded7900de925f50069b771de218b716a3c9b7a92815",
+  "metrics_output_path": "evaluation/metrics_summary.csv",
+  "metrics_output_sha256": "52fff4dfeae742cbfd79140f7a0cfa5e3fa0d47bb01745c15f7f5fbddc2f56a1",
+  "metrics": [
+    "RMSE",
+    "MAE",
+    "P90AE"
+  ],
+  "aggregation": "Compute metrics over prefixes per device per seed; average seeds within device; then take the equal-device mean.",
+  "status": "COMPLETED"
+}
