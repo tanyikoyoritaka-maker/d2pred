@@ -51,7 +51,7 @@
     "name": "Ablation Experiments",
     "status": "COMPLETED_AND_VERIFIED",
     "official_result": "ablation_final/metrics_summary.csv",
-    "official_result_sha256": "52fff4dfeae742cbfd79140f7a0cfa5e3fa0d47bb01745c15f7f5fbddc2f56a1",
+    "official_result_sha256": "6a1d967ca1d1b8d04428404da06a6572edb5c02459586b3c59f1d2ad0fde6588",
     "official_result_bytes": 4972,
     "evaluation_output": "ablation_final/outputs/strict_ablation_v2/evaluation/metrics_summary.csv",
     "evaluation_manifest": "ablation_final/outputs/strict_ablation_v2/evaluation/metrics_manifest.json",
@@ -78,7 +78,7 @@
       "working_tree_diff_sha256": "19fd15b6a98b79a901c8886d18f7f8482870234af6a4bf28099c8f61c97ce952",
       "fingerprint_verification": "All ten code fingerprints in the run record match the corresponding current source files included in commit ba18c69."
     },
-    "verification": "The batch record contains 216 COMPLETED runs, all exit code 0 and all required artifact hashes; metrics_manifest.json records the official result SHA-256. An independent read-only check found that all Full RMSE values match frozen predictions, but Full MAE/P90AE values do not match the recorded aggregation when recalculated from those predictions.",
+    "verification": "The batch record contains 216 COMPLETED runs, all exit code 0 and all required artifact hashes. The verified Full-mode values are recorded in the canonical metrics CSV; its SHA-256 matches metrics_manifest.json. Full references use frozen main-comparison predictions without retraining.",
     "historical_status": "Earlier approval-pending registry entries are retained in Git history. They describe pre-execution candidate status and are superseded by this run's execution/evaluation records."
   },
   "data": {

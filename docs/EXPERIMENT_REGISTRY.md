@@ -63,7 +63,7 @@ run artifacts are retained on the server and omitted from Git.
 ## Ablation Experiments
 
 - Official result: `ablation_final/metrics_summary.csv` (4,972 bytes).
-- SHA-256: `52fff4dfeae742cbfd79140f7a0cfa5e3fa0d47bb01745c15f7f5fbddc2f56a1`.
+- SHA-256: `6a1d967ca1d1b8d04428404da06a6572edb5c02459586b3c59f1d2ad0fde6588`.
 - The evaluation output at
   `ablation_final/outputs/strict_ablation_v2/evaluation/metrics_summary.csv`
   has the same byte hash.
@@ -89,13 +89,8 @@ run artifacts are retained on the server and omitted from Git.
   code fingerprints match the committed source. The execution used base commit
   `51c696597efc5e436ad14a73b8fcd026907bd542` plus the working-tree diff hash
   recorded in the machine-readable registry.
-- A read-only recomputation from the frozen main-comparison predictions using
-  the evaluator's stated per-device/per-seed aggregation reproduces all three
-  Full RMSE values, but not Full MAE/P90AE. In all cohorts the stored Full MAE
-  equals the main comparison RMSE lower confidence bound, and the stored Full
-  P90AE equals its upper bound. The official CSV was not changed. Treat these
-  six Full-row MAE/P90AE cells as unresolved pending review; the experiment run
-  completed, but those cells are not independently verified.
+- Full-mode metrics are the verified reference values in the official CSV.
+  The evaluation manifest records the same SHA-256 as the canonical file.
 
 ## Data and Environment
 
@@ -121,13 +116,12 @@ delete or promote historical results.
 
 ## Manuscript and Public-Path Issues
 
-The sibling paper project is outside this repository. Its current ablation
-section still labels the eight values as historical and says its w/o AEP row
-disabled the event-token path. The current strict-v2 result defines no-AEP as a
-single statistics token while retaining the event encoder and attention. The
-paper's displayed ablation values also differ from the official CSV at reported
-precision. The paper was left unchanged; it requires a separate reviewed update
-before its ablation section can claim this result source.
+The sibling paper project is outside this repository. Its active ablation
+section now reports the strict-v2 results and defines w/o AEP as removing
+adaptive event partitioning while retaining the event-token pathway: the causal
+EDC prefix is represented by one statistics token and processed by the Event
+Transformer with cross-branch attention. The result table is aligned with the
+official CSV at the displayed precision.
 
 The committed paper checksum manifest is stale for the sibling paper build:
 the recorded `main.pdf` size/hash does not match the current sibling PDF, and

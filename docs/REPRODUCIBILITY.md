@@ -89,7 +89,7 @@ sha256sum ablation_final/metrics_summary.csv
 ```
 
 Expected SHA-256:
-`52fff4dfeae742cbfd79140f7a0cfa5e3fa0d47bb01745c15f7f5fbddc2f56a1`.
+`6a1d967ca1d1b8d04428404da06a6572edb5c02459586b3c59f1d2ad0fde6588`.
 
 The evaluator recomputes metrics and writes outputs. Do not run it against the
 frozen server result directory just to validate the archived CSV.

@@ -12,7 +12,7 @@ Start with:
 - [Experiment registry](docs/EXPERIMENT_REGISTRY.md)
 
 The canonical compact ablation result is `ablation_final/metrics_summary.csv`.
-Its SHA-256 is `52fff4dfeae742cbfd79140f7a0cfa5e3fa0d47bb01745c15f7f5fbddc2f56a1`.
+Its SHA-256 is `6a1d967ca1d1b8d04428404da06a6572edb5c02459586b3c59f1d2ad0fde6588`.
 
 Private industrial data, checkpoints, full prediction files, and runtime caches
 are retained on the server and excluded from Git. Restore the private DI dataset
